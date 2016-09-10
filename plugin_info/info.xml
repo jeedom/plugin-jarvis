@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<info>
+    <id>jarvis</id>
+    <name>Jarvis</name>
+    <description>Plugin permettant de gérer un ou plusieurs Jarvis</description>
+    <licence>AGPL</licence>
+    <author>Loïc Gevrey</author>
+    <require>2.4</require>
+    <category>communication</category>
+</info>
+
