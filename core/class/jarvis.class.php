@@ -206,6 +206,7 @@ class jarvis extends eqLogic {
 		if ($this->execCmd('sudo ls ' . $this->getConfiguration('jarvis_install_folder') . '/config 2>/dev/null | wc -l') == 0) {
 			return;
 		}
+		$this->deamonManagement('stop');
 		foreach (self::$_configParam as $param) {
 			if ($this->getConfiguration('jarvis::' . $param, null) === null) {
 				continue;
@@ -219,6 +220,7 @@ class jarvis extends eqLogic {
 		if (file_exists(dirname(__FILE__) . '/../../data/' . $this->getConfiguration('jarvis::trigger') . '.pmdl')) {
 			$this->copyFile(dirname(__FILE__) . '/../../data/' . $this->getConfiguration('jarvis::trigger') . '.pmdl', $this->getConfiguration('jarvis_install_folder') . '/stt_engines/snowboy/resources/' . $this->getConfiguration('jarvis::trigger') . '.pmdl');
 		}
+		$this->deamonManagement('start');
 	}
 
 	public function copyFile($_from, $_to) {
