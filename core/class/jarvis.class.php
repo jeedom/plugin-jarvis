@@ -174,6 +174,33 @@ class jarvis extends eqLogic {
 		$this->writeConfig();
 	}
 
+	public function getSpeakerOrMicro($_type = 'speaker') {
+		$result = array();
+		switch ($_type) {
+			case 'speaker':
+				$datas = explode("\n", $this->execCmd('sudo aplay -l | grep card'));
+				break;
+			case 'micro':
+				$datas = explode("\n", $this->execCmd('sudo arecord -l | grep card'));
+				break;
+			default:
+				return $result;
+				break;
+		}
+
+		foreach ($datas as $data) {
+			if (trim($data) == '') {
+				continue;
+			}
+			preg_match('/.*card(.*?):(.*),.*device(.*?):(.*)/', $data, $matches);
+			if (count($matches) != 5) {
+				continue;
+			}
+			$result['hw:' . trim($matches[1]) . ',' . trim($matches[3])] = trim($matches[2]) . ' ' . trim($matches[4]);
+		}
+		return $result;
+	}
+
 	public function writeConfig() {
 		if ($this->execCmd('sudo ls ' . $this->getConfiguration('jarvis_install_folder') . '/config 2>/dev/null | wc -l') == 0) {
 			return;

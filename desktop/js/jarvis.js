@@ -98,3 +98,57 @@ $("#bt_selectRedirectJeedomResponse").on('click', function () {
         $('.eqLogicAttr[data-l1key=configuration][data-l2key=redirectJeedomResponse]').value(result.human);
     });
 });
+
+
+function printEqLogic(data){
+ $.ajax({
+    type: "POST", 
+    url: "plugins/jarvis/core/ajax/jarvis.ajax.php",
+    data: {
+        action: "getSpeakerOrMicro",
+        id: data.id,
+        type : 'speaker'
+    },
+    dataType: 'json',
+    error: function (request, status, error) {
+        handleAjaxError(request, status, error);
+    },
+    success: function (data) {
+        if (data.state != 'ok') {
+            $('#div_alert').showAlert({message: data.result, level: 'danger'});
+            return;
+        }
+        var options = '';
+        for(var i in data.result){
+            options += '<option value="'+i+'">'+data.result[i]+'</option>';
+        }
+        $('.eqLogicAttr[data-l1key=configuration][data-l2key="jarvis::play_hw"]').empty().append(options);
+    }
+});
+
+ $.ajax({
+    type: "POST", 
+    url: "plugins/jarvis/core/ajax/jarvis.ajax.php",
+    data: {
+        action: "getSpeakerOrMicro",
+        id: data.id,
+        type : 'micro'
+    },
+    dataType: 'json',
+    error: function (request, status, error) {
+        handleAjaxError(request, status, error);
+    },
+    success: function (data) {
+        if (data.state != 'ok') {
+            $('#div_alert').showAlert({message: data.result, level: 'danger'});
+            return;
+        }
+        var options = '';
+        for(var i in data.result){
+            options += '<option value="'+i+'">'+data.result[i]+'</option>';
+        }
+        $('.eqLogicAttr[data-l1key=configuration][data-l2key="jarvis::rec_hw"]').empty().append(options);
+    }
+});
+
+}

@@ -283,13 +283,13 @@ foreach (object::all() as $object) {
      <div class="form-group">
       <label class="col-sm-3 control-label">{{Haut parleur}}</label>
       <div class="col-sm-3">
-        <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::play_hw" />
+        <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::play_hw" ></select>
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-3 control-label">{{Micro}}</label>
       <div class="col-sm-3">
-        <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::rec_hw" />
+        <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::rec_hw" ></select>
       </div>
     </div>
     <div class="form-group">

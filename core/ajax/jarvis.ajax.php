@@ -45,6 +45,14 @@ try {
 		ajax::success($jarvis->installJarvis());
 	}
 
+	if (init('action') == 'getSpeakerOrMicro') {
+		$jarvis = jarvis::byId(init('id'));
+		if (!is_object($jarvis)) {
+			throw new Exception(__('Impossible de trouver l\'équipement :', __FILE__) . ' ' . init('id'));
+		}
+		ajax::success($jarvis->getSpeakerOrMicro(init('type')));
+	}
+
 	throw new Exception(__('Aucune méthode correspondante à : ', __FILE__) . init('action'));
 	/*     * *********Catch exeption*************** */
 } catch (Exception $e) {
