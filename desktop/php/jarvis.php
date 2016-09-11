@@ -136,6 +136,12 @@ foreach (object::all() as $object) {
                   <input type="password" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ssh::password" />
                 </div>
               </div>
+               <div class="form-group">
+                <label class="col-sm-2 control-label">{{Répertoire d'installation}}</label>
+                <div class="col-sm-2">
+                  <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis_install_folder" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
