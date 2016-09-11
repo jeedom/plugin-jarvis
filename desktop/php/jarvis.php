@@ -364,6 +364,16 @@ foreach (object::all() as $object) {
       <input type="number" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::snowboy_sensitivity" />
     </div>
   </div>
+
+  <div class="form-group">
+  <label class="col-lg-3 control-label">{{Envoyer fichier mot magique snowboy}}</label>
+    <div class="col-lg-8">
+      <span class="btn btn-default btn-file">
+        <i class="fa fa-cloud-upload"></i> {{Envoyer}}<input  id="bt_uploadMagicWordSnowboy" type="file" name="file" style="display: inline-block;">
+      </span>
+    </div>
+  </div>
+
   <div class="form-group">
     <label class="col-sm-3 control-label">{{Clef Bing}}</label>
     <div class="col-sm-3">

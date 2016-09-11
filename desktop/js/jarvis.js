@@ -57,7 +57,7 @@
 $('#bt_installJarvis').on('click',function(){
     bootbox.confirm('{{Etês vous sur de vouloir lancer l\'installation de Jarvis ? Ceci peut prendre jusqu\'a 1 heure. Vous pouvez suivre l\'avancement dans le log de l\'installation.N\'oubliez pas de resauvegarder votre équipement une fois l\'installation terminée.}}', function (result) {
         if (result) {
-         $.ajax({
+           $.ajax({
             type: "POST", 
             url: "plugins/jarvis/core/ajax/jarvis.ajax.php",
             data: {
@@ -78,8 +78,8 @@ $('#bt_installJarvis').on('click',function(){
                 $('#md_modal').load('index.php?v=d&plugin=jarvis&modal=jarvis.log&id=' + $('.eqLogicAttr[data-l1key=id]').value()+'&log=installation').dialog('open');
             }
         });
-     }
- });
+       }
+   });
 });
 
 $('#bt_viewInstallLog').on('click',function () {
@@ -101,7 +101,7 @@ $("#bt_selectRedirectJeedomResponse").on('click', function () {
 
 
 function printEqLogic(data){
- $.ajax({
+   $.ajax({
     type: "POST", 
     url: "plugins/jarvis/core/ajax/jarvis.ajax.php",
     data: {
@@ -126,7 +126,7 @@ function printEqLogic(data){
     }
 });
 
- $.ajax({
+   $.ajax({
     type: "POST", 
     url: "plugins/jarvis/core/ajax/jarvis.ajax.php",
     data: {
@@ -151,4 +151,23 @@ function printEqLogic(data){
     }
 });
 
+   try{
+     $('#bt_uploadMagicWordSnowboy').fileupload('destroy');
+ }
+ catch (e) {
+
+ }
+
+ $('#bt_uploadMagicWordSnowboy').fileupload({
+    replaceFileInput: false,
+    url: 'plugins/jarvis/core/ajax/jarvis.ajax.php?action=uploadMagicWordSnowboy&id=' + data.id +'&jeedom_token='+JEEDOM_AJAX_TOKEN,
+    dataType: 'json',
+    done: function (e, data) {
+        if (data.result.state != 'ok') {
+            $('#div_alert').showAlert({message: data.result.result, level: 'danger'});
+            return;
+        }
+    }
+});
 }
+

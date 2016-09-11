@@ -133,6 +133,7 @@ class jarvis extends eqLogic {
 		if ($this->getConfiguration('jarvis_install_folder') == '') {
 			throw new Exception(__('Le répertoire d\'installation de Jarvis ne peut être vide', __FILE__));
 		}
+		$this->setConfiguration('jarvis::trigger', trim(strtolower($this->getConfiguration('jarvis::trigger'))));
 	}
 
 	public function postSave() {
@@ -205,18 +206,19 @@ class jarvis extends eqLogic {
 		if ($this->execCmd('sudo ls ' . $this->getConfiguration('jarvis_install_folder') . '/config 2>/dev/null | wc -l') == 0) {
 			return;
 		}
-		$cmd = '';
 		foreach (self::$_configParam as $param) {
 			if ($this->getConfiguration('jarvis::' . $param, null) === null) {
 				continue;
 			}
-			$cmd .= 'sudo echo ' . $this->getConfiguration('jarvis::' . $param) . ' > ' . $this->getConfiguration('jarvis_install_folder') . '/config/' . $param . ';';
+			$this->execCmd('sudo echo ' . $this->getConfiguration('jarvis::' . $param) . ' > ' . $this->getConfiguration('jarvis_install_folder') . '/config/' . $param);
 		}
-		$this->execCmd($cmd);
 		$cmd = 'sudo echo "curl -s  -G \"' . network::getNetworkAccess('internal') . '/core/api/jeeApi.php?apikey=' . config::byKey('api') . '&type=jarvis&id=' . $this->getId() . '\" --data-urlencode \"query=\$1\"" > ' . $this->getConfiguration('jarvis_install_folder') . '/jeedom.sh;sudo chmod +x ' . $this->getConfiguration('jarvis_install_folder') . '/jeedom.sh';
 		$this->execCmd($cmd);
 		$cmd = 'sudo echo \'(*)==say "$(' . $this->getConfiguration('jarvis_install_folder') . '/jeedom.sh \"(1)\")"\' > ' . $this->getConfiguration('jarvis_install_folder') . '/jarvis-commands';
 		$this->execCmd($cmd);
+		if (file_exists(dirname(__FILE__) . '/../../data/' . $this->getConfiguration('jarvis::trigger') . '.pmdl')) {
+			$this->copyFile(dirname(__FILE__) . '/../../data/' . $this->getConfiguration('jarvis::trigger') . '.pmdl', $this->getConfiguration('jarvis_install_folder') . '/stt_engines/snowboy/resources/' . $this->getConfiguration('jarvis::trigger') . '.pmdl');
+		}
 	}
 
 	public function copyFile($_from, $_to) {

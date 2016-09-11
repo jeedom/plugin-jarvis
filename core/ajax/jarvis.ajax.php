@@ -53,6 +53,30 @@ try {
 		ajax::success($jarvis->getSpeakerOrMicro(init('type')));
 	}
 
+	if (init('action') == 'uploadMagicWordSnowboy') {
+		$jarvis = jarvis::byId(init('id'));
+		if (!is_object($jarvis)) {
+			throw new Exception(__('Impossible de trouver l\'équipement :', __FILE__) . ' ' . init('id'));
+		}
+		if (!isset($_FILES['file'])) {
+			throw new Exception(__('Aucun fichier trouvé. Vérifié parametre PHP (post size limit)', __FILE__));
+		}
+		$extension = strtolower(strrchr($_FILES['file']['name'], '.'));
+		if (!in_array($extension, array('.pmdl'))) {
+			throw new Exception('Extension du fichier non valide (autorisé .pmdl) : ' . $extension);
+		}
+		if (filesize($_FILES['file']['tmp_name']) > 1000000) {
+			throw new Exception(__('Le fichier est trop gros (maximum 1mo)', __FILE__));
+		}
+		if (!file_exists(dirname(__FILE__) . '/../../data')) {
+			mkdir(dirname(__FILE__) . '/../../data');
+		}
+		if (!move_uploaded_file($_FILES['file']['tmp_name'], dirname(__FILE__) . '/../../data/' . trim(strtolower($_FILES['file']['name'])))) {
+			throw new Exception(__('Impossible de déplacer le fichier temporaire', __FILE__));
+		}
+		ajax::success();
+	}
+
 	throw new Exception(__('Aucune méthode correspondante à : ', __FILE__) . init('action'));
 	/*     * *********Catch exeption*************** */
 } catch (Exception $e) {
