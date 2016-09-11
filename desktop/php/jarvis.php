@@ -68,14 +68,14 @@ foreach ($eqLogics as $eqLogic) {
       <fieldset>
         <legend><i class="fa fa-arrow-circle-left eqLogicAction cursor" data-action="returnToThumbnailDisplay"></i> {{Général}}  <i class='fa fa-cogs eqLogicAction pull-right cursor expertModeVisible' data-action='configure'></i></legend>
         <div class="form-group">
-          <label class="col-sm-2 control-label">{{Nom de l'équipement Jarvis}}</label>
+          <label class="col-sm-3 control-label">{{Nom de l'équipement Jarvis}}</label>
           <div class="col-sm-3">
             <input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
             <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de l'équipement template}}"/>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-2 control-label" >{{Objet parent}}</label>
+          <label class="col-sm-3 control-label" >{{Objet parent}}</label>
           <div class="col-sm-3">
             <select id="sel_object" class="eqLogicAttr form-control" data-l1key="object_id">
               <option value="">{{Aucun}}</option>
@@ -88,286 +88,301 @@ foreach (object::all() as $object) {
          </div>
        </div>
        <div class="form-group">
-        <label class="col-sm-2 control-label"></label>
+        <label class="col-sm-3 control-label"></label>
         <div class="col-sm-9">
          <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isEnable" checked/>{{Activer}}</label>
          <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isVisible" checked/>{{Visible}}</label>
        </div>
      </div>
-
-
-
-     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-      <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingOne">
-          <h4 class="panel-title">
-            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              {{Mode et connexion}}
-            </a>
-          </h4>
-        </div>
-        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-          <div class="panel-body">
-            <div class="form-group">
-              <label class="col-sm-2 control-label">{{Mode}}</label>
-              <div class="col-sm-2">
-                <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="mode">
-                  <option value="local">{{Local}}</option>
-                  <option value="ssh">{{SSH}}</option>
-                </select>
-              </div>
-            </div>
-            <div class="jarvis_mode jarvis_ssh">
-              <div class="form-group">
-                <label class="col-sm-2 control-label">{{IP}}</label>
-                <div class="col-sm-2">
-                  <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ssh::ip" />
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label">{{Nom d'utilisateur}}</label>
-                <div class="col-sm-2">
-                  <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ssh::username" />
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label">{{Mot de passe}}</label>
-                <div class="col-sm-2">
-                  <input type="password" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ssh::password" />
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label">{{Répertoire d'installation}}</label>
-                <div class="col-sm-2">
-                  <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis_install_folder" />
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label">{{Action}}</label>
-                <div class="col-sm-10">
-                  <a class="btn btn-warning" id="bt_installJarvis"><i class="fa fa-play"></i> {{Installer Jarvis}}</a>
-                  <a class="btn btn-default" id="bt_viewInstallLog"><i class="fa fa-file-code-o"></i> {{Voir log d'installation}}</a>
-                  <a class="btn btn-default" id="bt_viewLog"><i class="fa fa-file-o"></i> {{Voir log Jarvis}}</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingTwo">
-          <h4 class="panel-title">
-            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              {{Général}}
-            </a>
-          </h4>
-        </div>
-        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-          <div class="panel-body">
-           <div class="form-group">
-            <label class="col-sm-2 control-label">{{Comment Jarvis doit-il vous appeller}}</label>
-            <div class="col-sm-2">
-              <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::username" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">{{Déclencheur de l'écoute}}</label>
-            <div class="col-sm-2">
-              <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::trigger_mode" >
-                <option value="enter_key">{{Appuie sur la touche entrée}}</option>
-                <option value="magic_word">{{Mot magique}}</option>
-                <option value="physical_button">{{Appuie sur un bouton}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">{{Mot magique}}</label>
-            <div class="col-sm-2">
-              <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::trigger" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">{{Langue}}</label>
-            <div class="col-sm-2">
-              <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::language" >
-                <option value="fr_FR">{{Français}}</option>
-                <option value="en_EN">{{Anglais}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">{{Mode conversation}}</label>
-            <div class="col-sm-2">
-              <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::conversation_mode" >
-                <option value="true">{{Oui}}</option>
-                <option value="false">{{Non}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">{{Vérifier les mises à jour au démarrage de Jarvis}}</label>
-            <div class="col-sm-2">
-              <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::check_updates" >
-                <option value="true">{{Oui}}</option>
-                <option value="false">{{Non}}</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="panel panel-default">
-      <div class="panel-heading" role="tab" id="headingThree">
-        <h4 class="panel-title">
-          <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            {{Phrases}}
-          </a>
-        </h4>
-      </div>
-      <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-        <div class="panel-body">
-          <div class="form-group">
-            <label class="col-sm-2 control-label">{{Phrase de démarrage}}</label>
-            <div class="col-sm-2">
-              <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::phrase_welcome" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">{{Phrase de confirmation d'écoute}}</label>
-            <div class="col-sm-2">
-              <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::phrase_triggered" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">{{Phrase lors d'une commande non reconnue}}</label>
-            <div class="col-sm-2">
-              <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::phrase_misunderstood" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">{{Phrase lors de l'échec d'éxecution}}</label>
-            <div class="col-sm-2">
-              <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::phrase_failed" />
-            </div>
-          </div>
-        </div>
+     <div class="form-group">
+      <label class="col-sm-3 control-label">{{Relancer automatiquement en cas d'arrêt non voulu}}</label>
+      <div class="col-sm-4">
+        <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="autorestart" />
       </div>
     </div>
 
-    <div class="panel panel-default">
-      <div class="panel-heading" role="tab" id="headingFour">
-        <h4 class="panel-title">
-          <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-            {{Audio}}
-          </a>
-        </h4>
-      </div>
-      <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
-        <div class="panel-body">
-         <div class="form-group">
-          <label class="col-sm-2 control-label">{{Haut parleur}}</label>
-          <div class="col-sm-2">
-            <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::play_hw" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">{{Micro}}</label>
-          <div class="col-sm-2">
-            <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::rec_hw" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">{{Durée du bruit pour commencer l'écoute}}</label>
-          <div class="col-sm-2">
-            <input type="number" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::min_noise_duration_to_start" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">{{Pourcentage de bruit pour commencer l'écoute}}</label>
-          <div class="col-sm-2">
-            <input type="number" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::min_noise_perc_to_start" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">{{Durée du silence pour stoper l'écoute}}</label>
-          <div class="col-sm-2">
-            <input type="number" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::min_silence_duration_to_stop" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">{{Pourcentage de silence pour arrêter l'écoute}}</label>
-          <div class="col-sm-2">
-            <input type="number" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::min_silence_level_to_stop" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">{{Durée maximum de l'écoute}}</label>
-          <div class="col-sm-2">
-            <input type="number" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::max_noise_duration_to_kill" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">{{Rediriger les reponses de Jeedom sur}}</label>
+      <div class="col-sm-3">
+       <div class="input-group">
+        <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="redirectJeedomResponse" />
+        <span class="input-group-btn">
+         <a class="btn btn-default" id="bt_selectRedirectJeedomResponse"><i class="fa fa-list-alt"></i></a>
+       </span>
+     </div>
+   </div>
+ </div>
 
+ <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingFive">
+    <div class="panel-heading" role="tab" id="headingOne">
       <h4 class="panel-title">
-        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-          {{Reconnaissance vocal}}
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          {{Mode et connexion}}
         </a>
       </h4>
     </div>
-    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
         <div class="form-group">
-          <label class="col-sm-2 control-label">{{Méthode de reconnaissance du mot magique}}</label>
-          <div class="col-sm-2">
-            <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::trigger_stt" >
-             <option value="snowboy">{{Snowboy}}</option>
-             <option value="pocketsphynx">{{Pocket Sphinx}}</option>
-             <option value="google">{{Google}}</option>
-           </select>
-         </div>
-       </div>
-
+          <label class="col-sm-3 control-label">{{Mode}}</label>
+          <div class="col-sm-3">
+            <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="mode">
+              <option value="local">{{Local}}</option>
+              <option value="ssh">{{SSH}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="jarvis_mode jarvis_ssh">
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{IP}}</label>
+            <div class="col-sm-3">
+              <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ssh::ip" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{Nom d'utilisateur}}</label>
+            <div class="col-sm-3">
+              <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ssh::username" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{Mot de passe}}</label>
+            <div class="col-sm-3">
+              <input type="password" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ssh::password" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{Répertoire d'installation}}</label>
+            <div class="col-sm-3">
+              <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis_install_folder" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{Action}}</label>
+            <div class="col-sm-9">
+              <a class="btn btn-warning" id="bt_installJarvis"><i class="fa fa-play"></i> {{Installer Jarvis}}</a>
+              <a class="btn btn-default" id="bt_viewInstallLog"><i class="fa fa-file-code-o"></i> {{Voir log d'installation}}</a>
+              <a class="btn btn-default" id="bt_viewLog"><i class="fa fa-file-o"></i> {{Voir log Jarvis}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          {{Général}}
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
        <div class="form-group">
-        <label class="col-sm-2 control-label">{{Méthode de reconnaissance de la commande}}</label>
-        <div class="col-sm-2">
-          <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::command_stt" >
-           <option value="bing">{{Bing}}</option>
+        <label class="col-sm-3 control-label">{{Comment Jarvis doit-il vous appeller}}</label>
+        <div class="col-sm-3">
+          <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::username" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">{{Déclencheur de l'écoute}}</label>
+        <div class="col-sm-3">
+          <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::trigger_mode" >
+            <option value="enter_key">{{Appuie sur la touche entrée}}</option>
+            <option value="magic_word">{{Mot magique}}</option>
+            <option value="physical_button">{{Appuie sur un bouton}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">{{Mot magique}}</label>
+        <div class="col-sm-3">
+          <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::trigger" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">{{Langue}}</label>
+        <div class="col-sm-3">
+          <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::language" >
+            <option value="fr_FR">{{Français}}</option>
+            <option value="en_EN">{{Anglais}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">{{Mode conversation}}</label>
+        <div class="col-sm-3">
+          <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::conversation_mode" >
+            <option value="true">{{Oui}}</option>
+            <option value="false">{{Non}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">{{Vérifier les mises à jour au démarrage de Jarvis}}</label>
+        <div class="col-sm-3">
+          <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::check_updates" >
+            <option value="true">{{Oui}}</option>
+            <option value="false">{{Non}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading" role="tab" id="headingThree">
+    <h4 class="panel-title">
+      <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        {{Phrases}}
+      </a>
+    </h4>
+  </div>
+  <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+    <div class="panel-body">
+      <div class="form-group">
+        <label class="col-sm-3 control-label">{{Phrase de démarrage}}</label>
+        <div class="col-sm-3">
+          <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::phrase_welcome" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">{{Phrase de confirmation d'écoute}}</label>
+        <div class="col-sm-3">
+          <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::phrase_triggered" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">{{Phrase lors d'une commande non reconnue}}</label>
+        <div class="col-sm-3">
+          <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::phrase_misunderstood" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">{{Phrase lors de l'échec d'éxecution}}</label>
+        <div class="col-sm-3">
+          <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::phrase_failed" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading" role="tab" id="headingFour">
+    <h4 class="panel-title">
+      <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+        {{Audio}}
+      </a>
+    </h4>
+  </div>
+  <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+    <div class="panel-body">
+     <div class="form-group">
+      <label class="col-sm-3 control-label">{{Haut parleur}}</label>
+      <div class="col-sm-3">
+        <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::play_hw" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">{{Micro}}</label>
+      <div class="col-sm-3">
+        <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::rec_hw" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">{{Durée du bruit pour commencer l'écoute}}</label>
+      <div class="col-sm-3">
+        <input type="number" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::min_noise_duration_to_start" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">{{Pourcentage de bruit pour commencer l'écoute}}</label>
+      <div class="col-sm-3">
+        <input type="number" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::min_noise_perc_to_start" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">{{Durée du silence pour stoper l'écoute}}</label>
+      <div class="col-sm-3">
+        <input type="number" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::min_silence_duration_to_stop" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">{{Pourcentage de silence pour arrêter l'écoute}}</label>
+      <div class="col-sm-3">
+        <input type="number" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::min_silence_level_to_stop" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">{{Durée maximum de l'écoute}}</label>
+      <div class="col-sm-3">
+        <input type="number" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::max_noise_duration_to_kill" />
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading" role="tab" id="headingFive">
+    <h4 class="panel-title">
+      <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+        {{Reconnaissance vocal}}
+      </a>
+    </h4>
+  </div>
+  <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+    <div class="panel-body">
+      <div class="form-group">
+        <label class="col-sm-3 control-label">{{Méthode de reconnaissance du mot magique}}</label>
+        <div class="col-sm-3">
+          <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::trigger_stt" >
+           <option value="snowboy">{{Snowboy}}</option>
            <option value="pocketsphynx">{{Pocket Sphinx}}</option>
            <option value="google">{{Google}}</option>
-           <option value="wit">{{Wit}}</option>
          </select>
        </div>
      </div>
-     <div class="form-group">
-      <label class="col-sm-2 control-label">{{Sensibilité snowboy (0 à 1)}}</label>
-      <div class="col-sm-2">
-        <input type="number" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::snowboy_sensitivity" />
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-2 control-label">{{Clef Bing}}</label>
-      <div class="col-sm-2">
-        <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::bing_speech_api_key" />
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-2 control-label">{{Clef Google}}</label>
-      <div class="col-sm-2">
-        <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::google_speech_api_key" />
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-2 control-label">{{Clef Wit}}</label>
-      <div class="col-sm-2">
-        <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::wit_server_access_token" />
-      </div>
-    </div>
 
+     <div class="form-group">
+      <label class="col-sm-3 control-label">{{Méthode de reconnaissance de la commande}}</label>
+      <div class="col-sm-3">
+        <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::command_stt" >
+         <option value="bing">{{Bing}}</option>
+         <option value="pocketsphynx">{{Pocket Sphinx}}</option>
+         <option value="google">{{Google}}</option>
+         <option value="wit">{{Wit}}</option>
+       </select>
+     </div>
+   </div>
+   <div class="form-group">
+    <label class="col-sm-3 control-label">{{Sensibilité snowboy (0 à 1)}}</label>
+    <div class="col-sm-3">
+      <input type="number" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::snowboy_sensitivity" />
+    </div>
   </div>
+  <div class="form-group">
+    <label class="col-sm-3 control-label">{{Clef Bing}}</label>
+    <div class="col-sm-3">
+      <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::bing_speech_api_key" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-3 control-label">{{Clef Google}}</label>
+    <div class="col-sm-3">
+      <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::google_speech_api_key" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-3 control-label">{{Clef Wit}}</label>
+    <div class="col-sm-3">
+      <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::wit_server_access_token" />
+    </div>
+  </div>
+</div>
 </div>
 </div>
 
@@ -382,8 +397,8 @@ foreach (object::all() as $object) {
   <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
     <div class="panel-body">
       <div class="form-group">
-        <label class="col-sm-2 control-label">{{Moteur de synthèse vocal}}</label>
-        <div class="col-sm-2">
+        <label class="col-sm-3 control-label">{{Moteur de synthèse vocal}}</label>
+        <div class="col-sm-3">
           <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::tts_engine" >
            <option value="svox_pico">{{Svox pico}}</option>
            <option value="google">{{Google}}</option>

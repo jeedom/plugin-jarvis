@@ -55,25 +55,31 @@
 }
 
 $('#bt_installJarvis').on('click',function(){
-    $.ajax({
-        type: "POST", 
-        url: "plugins/jarvis/core/ajax/jarvis.ajax.php",
-        data: {
-            action: "install_jarvis",
-            id: $('.eqLogicAttr[data-l1key=id]').value(),
-        },
-        dataType: 'json',
-        error: function (request, status, error) {
-            handleAjaxError(request, status, error);
-        },
-        success: function (data) {
-            if (data.state != 'ok') {
-                $('#div_alert').showAlert({message: data.result, level: 'danger'});
-                return;
+    bootbox.confirm('{{Etês vous sur de vouloir lancer l\'installation de Jarvis ? Ceci peut prendre jusqu\'a 1 heure. Vous pouvez suivre l\'avancement dans le log de l\'installation.N\'oubliez pas de resauvegarder votre équipement une fois l\'installation terminée.}}', function (result) {
+        if (result) {
+         $.ajax({
+            type: "POST", 
+            url: "plugins/jarvis/core/ajax/jarvis.ajax.php",
+            data: {
+                action: "install_jarvis",
+                id: $('.eqLogicAttr[data-l1key=id]').value(),
+            },
+            dataType: 'json',
+            error: function (request, status, error) {
+                handleAjaxError(request, status, error);
+            },
+            success: function (data) {
+                if (data.state != 'ok') {
+                    $('#div_alert').showAlert({message: data.result, level: 'danger'});
+                    return;
+                }
+                $('#div_alert').showAlert({message: '{{Installation de Jarvis en cours}}', level: 'sucess'});
+                $('#md_modal').dialog({title: "{{Log d'installation}}"});
+                $('#md_modal').load('index.php?v=d&plugin=jarvis&modal=jarvis.log&id=' + $('.eqLogicAttr[data-l1key=id]').value()+'&log=installation').dialog('open');
             }
-            $('#div_alert').showAlert({message: '{{Installation de Jarvis en cours}}', level: 'sucess'});
-        }
-    });
+        });
+     }
+ });
 });
 
 $('#bt_viewInstallLog').on('click',function () {
@@ -84,4 +90,11 @@ $('#bt_viewInstallLog').on('click',function () {
 $('#bt_viewLog').on('click',function () {
     $('#md_modal').dialog({title: "{{Log de Jarvis}}"});
     $('#md_modal').load('index.php?v=d&plugin=jarvis&modal=jarvis.log&id=' + $('.eqLogicAttr[data-l1key=id]').value()+'&log=current').dialog('open');
+});
+
+
+$("#bt_selectRedirectJeedomResponse").on('click', function () {
+    jeedom.cmd.getSelectModal({cmd: {type: 'action', subType: 'message'}}, function (result) {
+        $('.eqLogicAttr[data-l1key=configuration][data-l2key=redirectJeedomResponse]').value(result.human);
+    });
 });

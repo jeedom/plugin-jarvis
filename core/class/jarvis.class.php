@@ -24,9 +24,36 @@ class jarvis extends eqLogic {
 
 	public static $_configParam = array('bing_speech_api_key', 'check_updates', 'command_stt', 'conversation_mode', 'dictionary', 'google_speech_api_key', 'language', 'language_model', 'max_noise_duration_to_kill', 'min_noise_duration_to_start', 'min_noise_perc_to_start', 'min_silence_duration_to_stop', 'min_silence_level_to_stop', 'osx_say_voice', 'phrase_failed', 'phrase_misunderstood', 'phrase_triggered', 'phrase_welcome', 'play_hw', 'pocketsphinxlog', 'rec_hw', 'separator', 'snowboy_sensitivity', 'tmp_folder', 'trigger', 'trigger_mode', 'trigger_stt', 'tts_engine', 'username', 'wit_server_access_token');
 
-	public static $_installationDir = '/opt/jarvis';
-
 	/*     * ***********************Methode static*************************** */
+
+	public static function event() {
+		$jarvis = jarvis::byId(init('id'));
+		if (!is_object($jarvis)) {
+			throw new Exception(__('Equipement introuvable :', __FILE__) . ' ' . init('id'));
+		}
+		$query = init('query');
+		if (init('utf8', 0) == 1) {
+			$query = utf8_encode($query);
+		}
+		$param = array();
+		if (init('emptyReply') != '') {
+			$param['emptyReply'] = init('emptyReply');
+		}
+		if (init('profile') != '') {
+			$param['profile'] = init('profile');
+		}
+		$response = interactQuery::tryToReply($query, $param);
+		if ($jarvis->getConfiguration('redirectJeedomResponse') == '') {
+			echo $response;
+		} else {
+			$cmd = cmd::byId(str_replace('#', '', $jarvis->getConfiguration('redirectJeedomResponse')));
+			if (!is_object($cmd)) {
+				throw new Exception(__('Commande de réponse introuvable :', __FILE__) . ' ' . $jarvis->getConfiguration('redirectJeedomResponse'));
+			}
+			$cmd->execCmd(array('message' => $response));
+		}
+		return;
+	}
 
 	public static function cron10($_eqLogic_id = null) {
 		if ($_eqLogic_id == null) {
@@ -37,6 +64,10 @@ class jarvis extends eqLogic {
 		foreach ($eqLogics as $jarvis) {
 			try {
 				$jarvis->updateInfo();
+				$state = $jarvis->getCmd(null, 'state');
+				if ($jarvis->getConfiguration('autorestart') == 1 && is_object($state) && !$state->execCmd() && $jarvis->getCache('deamonState') == 'start') {
+					$jarvis->deamonManagement('start');
+				}
 			} catch (Exception $e) {
 				log::add('jarvis', 'error', $e->getMessage());
 			}
@@ -47,7 +78,7 @@ class jarvis extends eqLogic {
 
 	public function installJarvis() {
 		$this->copyFile(dirname(__FILE__) . '/../../resources/install.sh', '/tmp/jarvis_install.sh');
-		$this->execCmd('sudo chmod +x /tmp/jarvis_install.sh;sudo /tmp/jarvis_install.sh "' . $this->getConfiguration('jarvis_install_folder') . '" > /tmp/jarvis_installation.log &');
+		$this->execCmd('sudo chmod +x /tmp/jarvis_install.sh;sudo /tmp/jarvis_install.sh "' . $this->getConfiguration('jarvis_install_folder') . '" > /tmp/jarvis_installation.log 2>&1 &');
 	}
 
 	public function updateInfo() {
@@ -155,6 +186,10 @@ class jarvis extends eqLogic {
 			$cmd .= 'sudo echo ' . $this->getConfiguration('jarvis::' . $param) . ' > ' . $this->getConfiguration('jarvis_install_folder') . '/config/' . $param . ';';
 		}
 		$this->execCmd($cmd);
+		$cmd = 'sudo echo "curl -s  -G \"' . network::getNetworkAccess('internal') . '/core/api/jeeApi.php?apikey=' . config::byKey('api') . '&type=jarvis&id=' . $this->getId() . '\" --data-urlencode \"query=\$1\"" > ' . $this->getConfiguration('jarvis_install_folder') . '/jeedom.sh;sudo chmod +x ' . $this->getConfiguration('jarvis_install_folder') . '/jeedom.sh';
+		$this->execCmd($cmd);
+		$cmd = 'sudo echo \'(*)==say "$(' . $this->getConfiguration('jarvis_install_folder') . '/jeedom.sh \"(1)\")"\' > ' . $this->getConfiguration('jarvis_install_folder') . '/jarvis-commands';
+		$this->execCmd($cmd);
 	}
 
 	public function copyFile($_from, $_to) {
@@ -230,6 +265,7 @@ class jarvisCmd extends cmd {
 		if ($this->getLogicalId() == 'start' || $this->getLogicalId() == 'stop') {
 			$eqLogic->deamonManagement($this->getLogicalId());
 			$eqLogic->updateInfo();
+			$eqLogic->setCache('deamonState', $this->getLogicalId());
 		}
 	}
 
