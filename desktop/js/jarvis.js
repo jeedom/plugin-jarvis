@@ -18,13 +18,11 @@
  $('.eqLogicAttr[data-l1key=configuration][data-l2key=mode]').on('change',function(){
     $('.jarvis_mode').hide();
     $('.jarvis_'+$(this).value()).show();
- });
+});
 
-$("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
-/*
- * Fonction pour l'ajout de commande, appellé automatiquement par plugin.template
- */
-function addCmdToTable(_cmd) {
+ $("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
+
+ function addCmdToTable(_cmd) {
     if (!isset(_cmd)) {
         var _cmd = {configuration: {}};
     }
@@ -55,3 +53,35 @@ function addCmdToTable(_cmd) {
     }
     jeedom.cmd.changeType($('#table_cmd tbody tr:last'), init(_cmd.subType));
 }
+
+$('#bt_installJarvis').on('click',function(){
+    $.ajax({
+        type: "POST", 
+        url: "plugins/jarvis/core/ajax/jarvis.ajax.php",
+        data: {
+            action: "install_jarvis",
+            id: $('.eqLogicAttr[data-l1key=id]').value(),
+        },
+        dataType: 'json',
+        error: function (request, status, error) {
+            handleAjaxError(request, status, error);
+        },
+        success: function (data) {
+            if (data.state != 'ok') {
+                $('#div_alert').showAlert({message: data.result, level: 'danger'});
+                return;
+            }
+            $('#div_alert').showAlert({message: '{{Installation de Jarvis en cours}}', level: 'sucess'});
+        }
+    });
+});
+
+$('#bt_viewInstallLog').on('click',function () {
+    $('#md_modal').dialog({title: "{{Log d'installation}}"});
+    $('#md_modal').load('index.php?v=d&plugin=jarvis&modal=jarvis.log&id=' + $('.eqLogicAttr[data-l1key=id]').value()+'&log=installation').dialog('open');
+});
+
+$('#bt_viewLog').on('click',function () {
+    $('#md_modal').dialog({title: "{{Log de Jarvis}}"});
+    $('#md_modal').load('index.php?v=d&plugin=jarvis&modal=jarvis.log&id=' + $('.eqLogicAttr[data-l1key=id]').value()+'&log=current').dialog('open');
+});

@@ -45,6 +45,11 @@ class jarvis extends eqLogic {
 
 	/*     * *********************Méthodes d'instance************************* */
 
+	public function installJarvis() {
+		$this->copyFile(dirname(__FILE__) . '/../../resources/install.sh', '/tmp/jarvis_install.sh');
+		$this->execCmd('sudo chmod +x /tmp/jarvis_install.sh;sudo /tmp/jarvis_install.sh "' . $this->getConfiguration('jarvis_install_folder') . '" > /tmp/jarvis_installation.log &');
+	}
+
 	public function updateInfo() {
 		$state_info = $this->deamonManagement('info');
 		$state = $this->getCmd(null, 'state');
@@ -66,6 +71,36 @@ class jarvis extends eqLogic {
 				$cmd .= "; (ps ax || ps w) | grep -ie 'jarvis.sh' | grep -v grep | awk '{print $1}' | xargs sudo kill -9 > /dev/null 2>&1";
 				$this->execCmd('sudo ' . $cmd);
 				break;
+		}
+	}
+
+	public function preInsert() {
+		$this->setConfiguration('mode', 'local');
+		$this->setConfiguration('jarvis_install_folder', '/opt/jarvis');
+		$this->setConfiguration('jarvis::username', __('Monsieur', __FILE__));
+		$this->setConfiguration('jarvis::check_updates', 'true');
+		$this->setConfiguration('jarvis::command_stt', 'google');
+		$this->setConfiguration('jarvis::conversation_mode', 'true');
+		$this->setConfiguration('jarvis::phrase_failed', __('Echec de la commande', __FILE__));
+		$this->setConfiguration('jarvis::phrase_triggered', __('Oui', __FILE__));
+		$this->setConfiguration('jarvis::phrase_welcome', __('Bonjour', __FILE__));
+		$this->setConfiguration('jarvis::phrase_misunderstood', __('je n\'ai pas compris', __FILE__));
+		$this->setConfiguration('jarvis::language', 'fr_FR');
+		$this->setConfiguration('jarvis::max_noise_duration_to_kill', 10);
+		$this->setConfiguration('jarvis::min_noise_duration_to_start', 0.1);
+		$this->setConfiguration('jarvis::min_noise_perc_to_start', 1);
+		$this->setConfiguration('jarvis::min_silence_duration_to_stop', 0.5);
+		$this->setConfiguration('jarvis::min_silence_level_to_stop', 1);
+		$this->setConfiguration('jarvis::snowboy_sensitivity', 0.5);
+		$this->setConfiguration('jarvis::trigger', 'jarvis');
+		$this->setConfiguration('jarvis::trigger_mode', 'magic_word');
+		$this->setConfiguration('jarvis::trigger_stt', 'svox_pico');
+		$this->setConfiguration('jarvis::tts_engine', 'true');
+	}
+
+	public function preUpdate() {
+		if ($this->getConfiguration('jarvis_install_folder') == '') {
+			throw new Exception(__('Le répertoire d\'installation de Jarvis ne peut être vide', __FILE__));
 		}
 	}
 

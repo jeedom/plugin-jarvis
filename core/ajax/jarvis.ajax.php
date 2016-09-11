@@ -17,18 +17,37 @@
  */
 
 try {
-    require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
-    include_file('core', 'authentification', 'php');
+	require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
+	include_file('core', 'authentification', 'php');
 
-    if (!isConnect('admin')) {
-        throw new Exception(__('401 - Accès non autorisé', __FILE__));
-    }
+	if (!isConnect('admin')) {
+		throw new Exception(__('401 - Accès non autorisé', __FILE__));
+	}
 
+	if (init('action') == 'getLog') {
+		$jarvis = jarvis::byId(init('id'));
+		if (!is_object($jarvis)) {
+			throw new Exception(__('Impossible de trouver l\'équipement :', __FILE__) . ' ' . init('id'));
+		}
+		if (init('log') == 'installation') {
+			ajax::success(explode("\n", $jarvis->readFile('/tmp/jarvis_installation.log')));
+		}
+		if (init('log') == 'current') {
+			ajax::success(explode("\n", $jarvis->readFile($jarvis->getConfiguration('jarvis_install_folder') . '/jarvis.log')));
+		}
+	}
 
+	if (init('action') == 'install_jarvis') {
+		$jarvis = jarvis::byId(init('id'));
+		if (!is_object($jarvis)) {
+			throw new Exception(__('Impossible de trouver l\'équipement :', __FILE__) . ' ' . init('id'));
+		}
+		ajax::success($jarvis->installJarvis());
+	}
 
-    throw new Exception(__('Aucune méthode correspondante à : ', __FILE__) . init('action'));
-    /*     * *********Catch exeption*************** */
+	throw new Exception(__('Aucune méthode correspondante à : ', __FILE__) . init('action'));
+	/*     * *********Catch exeption*************** */
 } catch (Exception $e) {
-    ajax::error(displayExeption($e), $e->getCode());
+	ajax::error(displayExeption($e), $e->getCode());
 }
 ?>
