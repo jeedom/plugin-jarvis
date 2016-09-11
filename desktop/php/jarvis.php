@@ -282,14 +282,26 @@ foreach (object::all() as $object) {
     <div class="panel-body">
      <div class="form-group">
       <label class="col-sm-3 control-label">{{Haut parleur}}</label>
-      <div class="col-sm-3">
+      <div class="col-sm-4">
         <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::play_hw" ></select>
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-3 control-label">{{Micro}}</label>
-      <div class="col-sm-3">
+      <div class="col-sm-4">
         <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::rec_hw" ></select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">{{Volume (%)}}</label>
+      <div class="col-sm-3">
+        <input type="number" min="0" max="100" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::volume" />
+      </div>
+    </div>
+     <div class="form-group">
+      <label class="col-sm-3 control-label">{{Sensibilité (%)}}</label>
+      <div class="col-sm-3">
+        <input type="number" min="0" max="100" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::sensitivity" />
       </div>
     </div>
     <div class="form-group">
@@ -361,7 +373,7 @@ foreach (object::all() as $object) {
    <div class="form-group">
     <label class="col-sm-3 control-label">{{Sensibilité snowboy (0 à 1)}}</label>
     <div class="col-sm-3">
-      <input type="number" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::snowboy_sensitivity" />
+      <input type="number" min="0" max="1" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::snowboy_sensitivity" />
     </div>
   </div>
 

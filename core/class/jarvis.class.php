@@ -127,6 +127,8 @@ class jarvis extends eqLogic {
 		$this->setConfiguration('jarvis::trigger_mode', 'magic_word');
 		$this->setConfiguration('jarvis::trigger_stt', 'svox_pico');
 		$this->setConfiguration('jarvis::tts_engine', 'true');
+		$this->setConfiguration('jarvis::volume', 83);
+		$this->setConfiguration('jarvis::sensitivity', 83);
 	}
 
 	public function preUpdate() {
@@ -197,7 +199,7 @@ class jarvis extends eqLogic {
 			if (count($matches) != 5) {
 				continue;
 			}
-			$result['hw:' . trim($matches[1]) . ',' . trim($matches[3])] = trim($matches[2]) . ' ' . trim($matches[4]);
+			$result['hw:' . trim($matches[1]) . ',' . trim($matches[3])] = trim($matches[2]) . ' ' . trim($matches[4]) . ' (' . trim($matches[1]) . ',' . trim($matches[3]) . ')';
 		}
 		return $result;
 	}
@@ -219,6 +221,14 @@ class jarvis extends eqLogic {
 		$this->execCmd($cmd);
 		if (file_exists(dirname(__FILE__) . '/../../data/' . $this->getConfiguration('jarvis::trigger') . '.pmdl')) {
 			$this->copyFile(dirname(__FILE__) . '/../../data/' . $this->getConfiguration('jarvis::trigger') . '.pmdl', $this->getConfiguration('jarvis_install_folder') . '/stt_engines/snowboy/resources/' . $this->getConfiguration('jarvis::trigger') . '.pmdl');
+		}
+		if ($this->getConfiguration('jarvis::volume', null) !== null && $this->getConfiguration('jarvis::play_hw') != '') {
+			$card = substr(str_replace('hw:', '', $this->getConfiguration('jarvis::play_hw')), 0, 1);
+			$this->execCmd('sudo amixer -c ' . $card . ' set PCM ' . $this->getConfiguration('jarvis::volume', null) . '%');
+		}
+		if ($this->getConfiguration('jarvis::sensitivity', null) !== null && $this->getConfiguration('jarvis::rec_hw') != '') {
+			$card = substr(str_replace('hw:', '', $this->getConfiguration('jarvis::rec_hw')), 0, 1);
+			$this->execCmd('sudo amixer -c ' . $card . ' set Mic ' . $this->getConfiguration('jarvis::sensitivity', null) . '%');
 		}
 		$this->deamonManagement('start');
 	}
