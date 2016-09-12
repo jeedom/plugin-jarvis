@@ -152,19 +152,19 @@ foreach (object::all() as $object) {
               <input type="password" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ssh::password" />
             </div>
           </div>
-          <div class="form-group">
-            <label class="col-sm-3 control-label">{{Répertoire d'installation}}</label>
-            <div class="col-sm-3">
-              <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis_install_folder" />
-            </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">{{Répertoire d'installation}}</label>
+          <div class="col-sm-3">
+            <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis_install_folder" />
           </div>
-          <div class="form-group">
-            <label class="col-sm-3 control-label">{{Action}}</label>
-            <div class="col-sm-9">
-              <a class="btn btn-warning" id="bt_installJarvis"><i class="fa fa-play"></i> {{Installer Jarvis}}</a>
-              <a class="btn btn-default" id="bt_viewInstallLog"><i class="fa fa-file-code-o"></i> {{Voir log d'installation}}</a>
-              <a class="btn btn-default" id="bt_viewLog"><i class="fa fa-file-o"></i> {{Voir log Jarvis}}</a>
-            </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">{{Action}}</label>
+          <div class="col-sm-9">
+            <a class="btn btn-warning" id="bt_installJarvis"><i class="fa fa-play"></i> {{Installer Jarvis}}</a>
+            <a class="btn btn-default" id="bt_viewInstallLog"><i class="fa fa-file-code-o"></i> {{Voir log d'installation}}</a>
+            <a class="btn btn-default" id="bt_viewLog"><i class="fa fa-file-o"></i> {{Voir log Jarvis}}</a>
           </div>
         </div>
       </div>
@@ -298,7 +298,7 @@ foreach (object::all() as $object) {
         <input type="number" min="0" max="100" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::volume" />
       </div>
     </div>
-     <div class="form-group">
+    <div class="form-group">
       <label class="col-sm-3 control-label">{{Sensibilité (%)}}</label>
       <div class="col-sm-3">
         <input type="number" min="0" max="100" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::sensitivity" />
@@ -378,7 +378,7 @@ foreach (object::all() as $object) {
   </div>
 
   <div class="form-group">
-  <label class="col-lg-3 control-label">{{Envoyer fichier mot magique snowboy}}</label>
+    <label class="col-lg-3 control-label">{{Envoyer fichier mot magique snowboy}}</label>
     <div class="col-lg-8">
       <span class="btn btn-default btn-file">
         <i class="fa fa-cloud-upload"></i> {{Envoyer}}<input  id="bt_uploadMagicWordSnowboy" type="file" name="file" style="display: inline-block;">

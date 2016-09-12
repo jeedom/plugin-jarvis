@@ -67,12 +67,14 @@ if [ $? -ne 0 ]; then
 	exit 1
 fi
 
-git clone https://github.com/jeedom/plugin-jarvis.git ${INSTALL_FOLDER}
+git clone https://github.com/alexylem/jarvis.git ${INSTALL_FOLDER}
 if [ $? -ne 0 ]; then
 	echo "Installation error - abort"
 	rm /tmp/install_jarvis_in_progress
 	exit 1
 fi
+
+sed  's/if \[ \"\$EUID\" -eq 0 \]; then/if \[ \"\$EUID\" -eq -1 \]; then/g' ${INSTALL_FOLDER}/jarvis.sh
 
 if [ ! -f ${INSTALL_FOLDER}/_snowboydetect.so ]; then
 	echo "Installation of snowboy"
