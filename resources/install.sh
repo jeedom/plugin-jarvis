@@ -74,7 +74,7 @@ if [ $? -ne 0 ]; then
 	exit 1
 fi
 
-sed  's/if \[ \"\$EUID\" -eq 0 \]; then/if \[ \"\$EUID\" -eq -1 \]; then/g' ${INSTALL_FOLDER}/jarvis.sh
+sed -i  's/if \[ \"\$EUID\" -eq 0 \]; then/if \[ \"\$EUID\" -eq -1 \]; then/g' ${INSTALL_FOLDER}/jarvis.sh
 
 if [ ! -f ${INSTALL_FOLDER}/_snowboydetect.so ]; then
 	echo "Installation of snowboy"
