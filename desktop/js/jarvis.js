@@ -100,13 +100,13 @@ $("#bt_selectRedirectJeedomResponse").on('click', function () {
 });
 
 
-function printEqLogic(data){
+function printEqLogic(eqLogic){
    $.ajax({
     type: "POST", 
     url: "plugins/jarvis/core/ajax/jarvis.ajax.php",
     data: {
         action: "getSpeakerOrMicro",
-        id: data.id,
+        id: eqLogic.id,
         type : 'speaker'
     },
     dataType: 'json',
@@ -120,7 +120,11 @@ function printEqLogic(data){
         }
         var options = '';
         for(var i in data.result){
-            options += '<option value="'+i+'">'+data.result[i]+'</option>';
+            if(isset(eqLogic.configuration) && isset(eqLogic.configuration['jarvis::play_hw']) && eqLogic.configuration['jarvis::play_hw'] == i){
+                options += '<option value="'+i+'" selected>'+data.result[i]+'</option>';
+            }else{
+                options += '<option value="'+i+'">'+data.result[i]+'</option>';
+            }
         }
         $('.eqLogicAttr[data-l1key=configuration][data-l2key="jarvis::play_hw"]').empty().append(options);
     }
@@ -131,7 +135,7 @@ function printEqLogic(data){
     url: "plugins/jarvis/core/ajax/jarvis.ajax.php",
     data: {
         action: "getSpeakerOrMicro",
-        id: data.id,
+        id: eqLogic.id,
         type : 'micro'
     },
     dataType: 'json',
@@ -145,7 +149,11 @@ function printEqLogic(data){
         }
         var options = '';
         for(var i in data.result){
-            options += '<option value="'+i+'">'+data.result[i]+'</option>';
+            if(isset(eqLogic.configuration) && isset(eqLogic.configuration['jarvis::rec_hw']) && eqLogic.configuration['jarvis::rec_hw'] == i){
+                options += '<option value="'+i+'" selected>'+data.result[i]+'</option>';
+            }else{
+                options += '<option value="'+i+'">'+data.result[i]+'</option>';
+            }
         }
         $('.eqLogicAttr[data-l1key=configuration][data-l2key="jarvis::rec_hw"]').empty().append(options);
     }
