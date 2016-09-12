@@ -123,7 +123,7 @@ class jarvis extends eqLogic {
 		$this->setConfiguration('jarvis::min_silence_duration_to_stop', 0.5);
 		$this->setConfiguration('jarvis::min_silence_level_to_stop', 1);
 		$this->setConfiguration('jarvis::snowboy_sensitivity', 0.5);
-		$this->setConfiguration('jarvis::trigger', 'jarvis');
+		$this->setConfiguration('jarvis::trigger', 'ok jeedom');
 		$this->setConfiguration('jarvis::trigger_mode', 'magic_word');
 		$this->setConfiguration('jarvis::trigger_stt', 'svox_pico');
 		$this->setConfiguration('jarvis::tts_engine', 'true');
@@ -221,6 +221,10 @@ class jarvis extends eqLogic {
 		$this->execCmd($cmd);
 		if (file_exists(dirname(__FILE__) . '/../../data/' . $this->getConfiguration('jarvis::trigger') . '.pmdl')) {
 			$this->copyFile(dirname(__FILE__) . '/../../data/' . $this->getConfiguration('jarvis::trigger') . '.pmdl', $this->getConfiguration('jarvis_install_folder') . '/stt_engines/snowboy/resources/' . $this->getConfiguration('jarvis::trigger') . '.pmdl');
+		} else if (file_exists(dirname(__FILE__) . '/../../resources/' . $this->getConfiguration('jarvis::trigger') . '.pmdl')) {
+			$this->copyFile(dirname(__FILE__) . '/../../resources/' . $this->getConfiguration('jarvis::trigger') . '.pmdl', $this->getConfiguration('jarvis_install_folder') . '/stt_engines/snowboy/resources/' . $this->getConfiguration('jarvis::trigger') . '.pmdl');
+		} else if (file_exists(dirname(__FILE__) . '/../../resources/' . ucfirst($this->getConfiguration('jarvis::trigger')) . '.pmdl')) {
+			$this->copyFile(dirname(__FILE__) . '/../../resources/' . ucfirst($this->getConfiguration('jarvis::trigger')) . '.pmdl', $this->getConfiguration('jarvis_install_folder') . '/stt_engines/snowboy/resources/' . $this->getConfiguration('jarvis::trigger') . '.pmdl');
 		}
 		if ($this->getConfiguration('jarvis::volume', null) !== null && $this->getConfiguration('jarvis::play_hw') != '') {
 			$card = substr(str_replace('hw:', '', $this->getConfiguration('jarvis::play_hw')), 0, 1);
