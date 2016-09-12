@@ -168,7 +168,7 @@ function printEqLogic(eqLogic){
 
  $('#bt_uploadMagicWordSnowboy').fileupload({
     replaceFileInput: false,
-    url: 'plugins/jarvis/core/ajax/jarvis.ajax.php?action=uploadMagicWordSnowboy&id=' + data.id +'&jeedom_token='+JEEDOM_AJAX_TOKEN,
+    url: 'plugins/jarvis/core/ajax/jarvis.ajax.php?action=uploadMagicWordSnowboy&id=' + eqLogic.id +'&jeedom_token='+JEEDOM_AJAX_TOKEN,
     dataType: 'json',
     done: function (e, data) {
         if (data.result.state != 'ok') {
