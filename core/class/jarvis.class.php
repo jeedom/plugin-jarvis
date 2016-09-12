@@ -174,7 +174,9 @@ class jarvis extends eqLogic {
 	}
 
 	public function postUpdate() {
-		$this->writeConfig();
+		if ($this->getIsEnable()) {
+			$this->writeConfig();
+		}
 	}
 
 	public function getSpeakerOrMicro($_type = 'speaker') {
