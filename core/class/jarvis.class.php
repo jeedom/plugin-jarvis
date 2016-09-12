@@ -120,8 +120,8 @@ class jarvis extends eqLogic {
 		$this->setConfiguration('jarvis::max_noise_duration_to_kill', 10);
 		$this->setConfiguration('jarvis::min_noise_duration_to_start', 0.1);
 		$this->setConfiguration('jarvis::min_noise_perc_to_start', 1);
-		$this->setConfiguration('jarvis::min_silence_duration_to_stop', 0.5);
-		$this->setConfiguration('jarvis::min_silence_level_to_stop', 1);
+		$this->setConfiguration('jarvis::min_silence_duration_to_stop', 0.4);
+		$this->setConfiguration('jarvis::min_silence_level_to_stop', 5);
 		$this->setConfiguration('jarvis::snowboy_sensitivity', 0.5);
 		$this->setConfiguration('jarvis::trigger', 'ok jeedom');
 		$this->setConfiguration('jarvis::trigger_mode', 'magic_word');
