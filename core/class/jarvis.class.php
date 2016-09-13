@@ -76,9 +76,9 @@ class jarvis extends eqLogic {
 
 	/*     * *********************Méthodes d'instance************************* */
 
-	public function installJarvis() {
+	public function installJarvis($_mode = 'install') {
 		$this->copyFile(dirname(__FILE__) . '/../../resources/install.sh', '/tmp/jarvis_install.sh');
-		$this->execCmd('sudo chmod +x /tmp/jarvis_install.sh;sudo /tmp/jarvis_install.sh "' . $this->getConfiguration('jarvis_install_folder') . '" > /tmp/jarvis_installation.log 2>&1 &');
+		$this->execCmd('sudo chmod +x /tmp/jarvis_install.sh;sudo /tmp/jarvis_install.sh "' . $this->getConfiguration('jarvis_install_folder') . '" ' . $_mode . '> /tmp/jarvis_installation.log 2>&1 &');
 	}
 
 	public function updateInfo() {
@@ -171,12 +171,6 @@ class jarvis extends eqLogic {
 		$cmd->setType('action');
 		$cmd->setSubType('other');
 		$cmd->save();
-	}
-
-	public function postUpdate() {
-		if ($this->getIsEnable()) {
-			$this->writeConfig();
-		}
 	}
 
 	public function getSpeakerOrMicro($_type = 'speaker') {

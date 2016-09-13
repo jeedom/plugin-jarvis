@@ -26,6 +26,8 @@ fi
 touch /tmp/install_jarvis_in_progress
 
 INSTALL_FOLDER=$1
+MODE=${2:-install}
+
 if [ -z ${INSTALL_FOLDER} ]; then
 	echo "Installation error, no dir install found - abort"
 	rm /tmp/install_jarvis_in_progress
@@ -34,6 +36,12 @@ fi
 echo 'Installation of jarvis in '${INSTALL_FOLDER}
 
 apt-get update
+
+if [ $? -ne 0 ]; then
+	echo "Installation error - abort"
+	rm /tmp/install_jarvis_in_progress
+	exit 1
+fi
 
 if [ "$(uname)" == "Darwin" ]; then
 	platform="osx"
@@ -47,31 +55,37 @@ else
 	exit 1
 fi
 
-if [ $? -ne 0 ]; then
-	echo "Installation error - abort"
-	rm /tmp/install_jarvis_in_progress
-	exit 1
-fi
+if [ ${MODE} == "install" ];then
+	mkdir -p ${INSTALL_FOLDER}
+	if [ $? -ne 0 ]; then
+		echo "Installation error - abort"
+		rm /tmp/install_jarvis_in_progress
+		exit 1
+	fi
 
-mkdir -p ${INSTALL_FOLDER}
-if [ $? -ne 0 ]; then
-	echo "Installation error - abort"
-	rm /tmp/install_jarvis_in_progress
-	exit 1
-fi
 
-rm -rf ${INSTALL_FOLDER}
-if [ $? -ne 0 ]; then
-	echo "Installation error - abort"
-	rm /tmp/install_jarvis_in_progress
-	exit 1
-fi
+	rm -rf ${INSTALL_FOLDER}
+	if [ $? -ne 0 ]; then
+		echo "Installation error - abort"
+		rm /tmp/install_jarvis_in_progress
+		exit 1
+	fi
 
-git clone https://github.com/alexylem/jarvis.git ${INSTALL_FOLDER}
-if [ $? -ne 0 ]; then
-	echo "Installation error - abort"
-	rm /tmp/install_jarvis_in_progress
-	exit 1
+	git clone https://github.com/alexylem/jarvis.git ${INSTALL_FOLDER}
+	if [ $? -ne 0 ]; then
+		echo "Installation error - abort"
+		rm /tmp/install_jarvis_in_progress
+		exit 1
+	fi
+else
+	if [ -d ${INSTALL_FOLDER} ];then
+		echo "Update error no installation found - abort"
+		rm /tmp/install_jarvis_in_progress
+		exit 1
+	fi
+	cd ${INSTALL_FOLDER}
+	git reset --hard HEAD
+	git pull
 fi
 
 sed -i  's/if \[ \"\$EUID\" -eq 0 \]; then/if \[ \"\$EUID\" -eq -1 \]; then/g' ${INSTALL_FOLDER}/jarvis.sh
@@ -124,6 +138,29 @@ hash 'pico2wave' 2>/dev/null || {
 	else
 		echo "SVOX Pico is not available on your platform"
 	fi
+}
+
+
+hash 'espeak' 2>/dev/null || {
+	echo "Installation of espeak"
+	if [[ "$platform" == "linux" ]]; then
+		sudo apt-get install -y espeak
+	else
+		brew install espeak
+	fi
+	echo "Installation of espeak success"
+}
+
+
+hash 'mpg123' 2>/dev/null || {
+	echo "Installation of mpg123"
+	if [[ "$platform" == "linux" ]]; then
+		sudo apt-get install -y mpg123
+	else
+		echo "Downloading & Installing..."
+		brew install mpg123
+	fi
+	echo "Installation of mpg123 success"
 }
 
 cd ${INSTALL_FOLDER}

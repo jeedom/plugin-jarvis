@@ -42,7 +42,15 @@ try {
 		if (!is_object($jarvis)) {
 			throw new Exception(__('Impossible de trouver l\'équipement :', __FILE__) . ' ' . init('id'));
 		}
-		ajax::success($jarvis->installJarvis());
+		ajax::success($jarvis->installJarvis(init('mode')));
+	}
+
+	if (init('action') == 'send_config') {
+		$jarvis = jarvis::byId(init('id'));
+		if (!is_object($jarvis)) {
+			throw new Exception(__('Impossible de trouver l\'équipement :', __FILE__) . ' ' . init('id'));
+		}
+		ajax::success($jarvis->writeConfig());
 	}
 
 	if (init('action') == 'getSpeakerOrMicro') {

@@ -163,6 +163,8 @@ foreach (object::all() as $object) {
           <label class="col-sm-3 control-label">{{Action}}</label>
           <div class="col-sm-9">
             <a class="btn btn-warning" id="bt_installJarvis"><i class="fa fa-play"></i> {{Installer Jarvis}}</a>
+            <a class="btn btn-success" id="bt_updateJarvis"><i class="fa fa-refresh"></i> {{Mettre à jour}}</a>
+            <a class="btn btn-success" id="bt_sendConfiguration"><i class="fa fa-wrench"></i> {{Envoyer la configuration}}</a>
             <a class="btn btn-default" id="bt_viewInstallLog"><i class="fa fa-file-code-o"></i> {{Voir log d'installation}}</a>
             <a class="btn btn-default" id="bt_viewLog"><i class="fa fa-file-o"></i> {{Voir log Jarvis}}</a>
           </div>
@@ -353,7 +355,6 @@ foreach (object::all() as $object) {
         <div class="col-sm-3">
           <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::trigger_stt" >
            <option value="snowboy">{{Snowboy}}</option>
-           <option value="pocketsphynx">{{Pocket Sphinx}}</option>
            <option value="google">{{Google}}</option>
          </select>
        </div>
@@ -364,7 +365,6 @@ foreach (object::all() as $object) {
       <div class="col-sm-3">
         <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::command_stt" >
          <option value="bing">{{Bing}}</option>
-         <option value="pocketsphynx">{{Pocket Sphinx}}</option>
          <option value="google">{{Google}}</option>
          <option value="wit">{{Wit}}</option>
        </select>

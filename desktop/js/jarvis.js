@@ -57,12 +57,13 @@
 $('#bt_installJarvis').on('click',function(){
     bootbox.confirm('{{Etês vous sur de vouloir lancer l\'installation de Jarvis ? Ceci peut prendre jusqu\'a 1 heure. Vous pouvez suivre l\'avancement dans le log de l\'installation.N\'oubliez pas de resauvegarder votre équipement une fois l\'installation terminée.}}', function (result) {
         if (result) {
-           $.ajax({
+         $.ajax({
             type: "POST", 
             url: "plugins/jarvis/core/ajax/jarvis.ajax.php",
             data: {
                 action: "install_jarvis",
                 id: $('.eqLogicAttr[data-l1key=id]').value(),
+                mode : 'install'
             },
             dataType: 'json',
             error: function (request, status, error) {
@@ -78,8 +79,59 @@ $('#bt_installJarvis').on('click',function(){
                 $('#md_modal').load('index.php?v=d&plugin=jarvis&modal=jarvis.log&id=' + $('.eqLogicAttr[data-l1key=id]').value()+'&log=installation').dialog('open');
             }
         });
-       }
-   });
+     }
+ });
+});
+
+$('#bt_updateJarvis').on('click',function(){
+    bootbox.confirm('{{Etês vous sur de vouloir mettre à jour l\'installation de Jarvis ? Ceci peut prendre jusqu\'a 1 heure. Vous pouvez suivre l\'avancement dans le log de l\'installation.N\'oubliez pas de resauvegarder votre équipement une fois l\'installation terminée.}}', function (result) {
+        if (result) {
+         $.ajax({
+            type: "POST", 
+            url: "plugins/jarvis/core/ajax/jarvis.ajax.php",
+            data: {
+                action: "install_jarvis",
+                id: $('.eqLogicAttr[data-l1key=id]').value(),
+                mode : 'update'
+            },
+            dataType: 'json',
+            error: function (request, status, error) {
+                handleAjaxError(request, status, error);
+            },
+            success: function (data) {
+                if (data.state != 'ok') {
+                    $('#div_alert').showAlert({message: data.result, level: 'danger'});
+                    return;
+                }
+                $('#div_alert').showAlert({message: '{{Installation de Jarvis en cours}}', level: 'sucess'});
+                $('#md_modal').dialog({title: "{{Log d'installation}}"});
+                $('#md_modal').load('index.php?v=d&plugin=jarvis&modal=jarvis.log&id=' + $('.eqLogicAttr[data-l1key=id]').value()+'&log=installation').dialog('open');
+            }
+        });
+     }
+ });
+});
+
+$('#bt_sendConfiguration').on('click',function(){
+ $.ajax({
+    type: "POST", 
+    url: "plugins/jarvis/core/ajax/jarvis.ajax.php",
+    data: {
+        action: "send_config",
+        id: $('.eqLogicAttr[data-l1key=id]').value(),
+    },
+    dataType: 'json',
+    error: function (request, status, error) {
+        handleAjaxError(request, status, error);
+    },
+    success: function (data) {
+        if (data.state != 'ok') {
+            $('#div_alert').showAlert({message: data.result, level: 'danger'});
+            return;
+        }
+        $('#div_alert').showAlert({message: '{{Configuration envoyée sur Jarvis}}', level: 'sucess'});
+    }
+});
 });
 
 $('#bt_viewInstallLog').on('click',function () {
@@ -101,7 +153,7 @@ $("#bt_selectRedirectJeedomResponse").on('click', function () {
 
 
 function printEqLogic(eqLogic){
-   $.ajax({
+ $.ajax({
     type: "POST", 
     url: "plugins/jarvis/core/ajax/jarvis.ajax.php",
     data: {
@@ -130,7 +182,7 @@ function printEqLogic(eqLogic){
     }
 });
 
-   $.ajax({
+ $.ajax({
     type: "POST", 
     url: "plugins/jarvis/core/ajax/jarvis.ajax.php",
     data: {
@@ -159,14 +211,14 @@ function printEqLogic(eqLogic){
     }
 });
 
-   try{
-     $('#bt_uploadMagicWordSnowboy').fileupload('destroy');
- }
- catch (e) {
+ try{
+   $('#bt_uploadMagicWordSnowboy').fileupload('destroy');
+}
+catch (e) {
 
- }
+}
 
- $('#bt_uploadMagicWordSnowboy').fileupload({
+$('#bt_uploadMagicWordSnowboy').fileupload({
     replaceFileInput: false,
     url: 'plugins/jarvis/core/ajax/jarvis.ajax.php?action=uploadMagicWordSnowboy&id=' + eqLogic.id +'&jeedom_token='+JEEDOM_AJAX_TOKEN,
     dataType: 'json',
