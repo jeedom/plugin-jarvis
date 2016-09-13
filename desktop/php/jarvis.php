@@ -118,7 +118,7 @@ foreach (object::all() as $object) {
     <div class="panel-heading" role="tab" id="headingOne">
       <h4 class="panel-title">
         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          {{Mode et connexion}}
+          <i class="fa fa-plug" aria-hidden="true"></i> {{Mode et connexion}}
         </a>
       </h4>
     </div>
@@ -176,7 +176,7 @@ foreach (object::all() as $object) {
     <div class="panel-heading" role="tab" id="headingTwo">
       <h4 class="panel-title">
         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          {{Général}}
+          <i class="fa fa-wrench" aria-hidden="true"></i> {{Général}}
         </a>
       </h4>
     </div>
@@ -238,7 +238,7 @@ foreach (object::all() as $object) {
   <div class="panel-heading" role="tab" id="headingThree">
     <h4 class="panel-title">
       <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-        {{Phrases}}
+        <i class="fa fa-commenting-o" aria-hidden="true"></i> {{Phrases}}
       </a>
     </h4>
   </div>
@@ -276,7 +276,7 @@ foreach (object::all() as $object) {
   <div class="panel-heading" role="tab" id="headingFour">
     <h4 class="panel-title">
       <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-        {{Audio}}
+        <i class="fa fa-volume-off" aria-hidden="true"></i> {{Audio}}
       </a>
     </h4>
   </div>
@@ -344,7 +344,7 @@ foreach (object::all() as $object) {
   <div class="panel-heading" role="tab" id="headingFive">
     <h4 class="panel-title">
       <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-        {{Reconnaissance vocal}}
+        <i class="fa fa-microphone" aria-hidden="true"></i> {{Reconnaissance vocal}}
       </a>
     </h4>
   </div>
@@ -412,7 +412,7 @@ foreach (object::all() as $object) {
   <div class="panel-heading" role="tab" id="headingSix">
     <h4 class="panel-title">
       <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-        {{Synthese vocal}}
+        <i class="fa fa-play" aria-hidden="true"></i> {{Synthese vocal}}
       </a>
     </h4>
   </div>
