@@ -289,9 +289,9 @@ foreach (object::all() as $object) {
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-3 control-label">{{Sensibilité (%)}}</label>
-      <div class="col-sm-3">
-        <input type="number" min="0" max="100" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::sensitivity" />
+      <label class="col-sm-3 control-label">{{Micro}}</label>
+      <div class="col-sm-4">
+        <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::rec_hw" ></select>
       </div>
     </div>
     <div class="form-group">
