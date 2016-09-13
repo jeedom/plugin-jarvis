@@ -33,7 +33,7 @@ if [ -z ${INSTALL_FOLDER} ]; then
 	rm /tmp/install_jarvis_in_progress
 	exit 1
 fi
-echo 'Installation of jarvis in '${INSTALL_FOLDER}
+echo 'Installation/Update of jarvis in '${INSTALL_FOLDER}
 
 apt-get update
 
@@ -78,7 +78,7 @@ if [ ${MODE} == "install" ];then
 		exit 1
 	fi
 else
-	if [ -d ${INSTALL_FOLDER} ];then
+	if [ ! -d ${INSTALL_FOLDER} ];then
 		echo "Update error no installation found - abort"
 		rm /tmp/install_jarvis_in_progress
 		exit 1
@@ -90,7 +90,7 @@ fi
 
 sed -i  's/if \[ \"\$EUID\" -eq 0 \]; then/if \[ \"\$EUID\" -eq -1 \]; then/g' ${INSTALL_FOLDER}/jarvis.sh
 
-if [ ! -f ${INSTALL_FOLDER}/_snowboydetect.so ]; then
+if [ ! -f ${INSTALL_FOLDER}/stt_engines/snowboy/_snowboydetect.so ]; then
 	echo "Installation of snowboy"
 	if [[ "$platform" == "linux" ]]; then
 		apt_install python-pyaudio python3-pyaudio libatlas-base-dev

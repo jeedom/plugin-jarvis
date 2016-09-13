@@ -143,6 +143,9 @@ class jarvis extends eqLogic {
 		if (!is_object($cmd)) {
 			$cmd = new jarvisCmd();
 			$cmd->setName(__('Status', __FILE__));
+			$cmd->setOrder(1);
+			$cmd->setTemplate('dashboard', 'line');
+			$cmd->setTemplate('mobile', 'line');
 		}
 		$cmd->setEqLogic_id($this->getId());
 		$cmd->setLogicalId('state');
@@ -154,6 +157,7 @@ class jarvis extends eqLogic {
 		if (!is_object($cmd)) {
 			$cmd = new jarvisCmd();
 			$cmd->setName(__('Démarrer', __FILE__));
+			$cmd->setOrder(2);
 		}
 		$cmd->setEqLogic_id($this->getId());
 		$cmd->setLogicalId('start');
@@ -165,11 +169,48 @@ class jarvis extends eqLogic {
 		if (!is_object($cmd)) {
 			$cmd = new jarvisCmd();
 			$cmd->setName(__('Arrêter', __FILE__));
+			$cmd->setOrder(3);
 		}
 		$cmd->setEqLogic_id($this->getId());
 		$cmd->setLogicalId('stop');
 		$cmd->setType('action');
 		$cmd->setSubType('other');
+		$cmd->save();
+
+		$cmd = $this->getCmd(null, 'volume');
+		if (!is_object($cmd)) {
+			$cmd = new jarvisCmd();
+			$cmd->setName(__('Volume', __FILE__));
+			$cmd->setOrder(4);
+		}
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->setLogicalId('volume');
+		$cmd->setType('action');
+		$cmd->setSubType('slider');
+		$cmd->save();
+
+		$cmd = $this->getCmd(null, 'sensitivity');
+		if (!is_object($cmd)) {
+			$cmd = new jarvisCmd();
+			$cmd->setName(__('Sensibilité', __FILE__));
+			$cmd->setOrder(5);
+		}
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->setLogicalId('sensitivity');
+		$cmd->setType('action');
+		$cmd->setSubType('slider');
+		$cmd->save();
+
+		$cmd = $this->getCmd(null, 'say');
+		if (!is_object($cmd)) {
+			$cmd = new jarvisCmd();
+			$cmd->setName(__('Dit', __FILE__));
+			$cmd->setOrder(6);
+		}
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->setLogicalId('say');
+		$cmd->setType('action');
+		$cmd->setSubType('message');
 		$cmd->save();
 	}
 
@@ -225,15 +266,9 @@ class jarvis extends eqLogic {
 		} else if (file_exists(dirname(__FILE__) . '/../../resources/' . ucfirst($this->getConfiguration('jarvis::trigger')) . '.pmdl')) {
 			$this->copyFile(dirname(__FILE__) . '/../../resources/' . ucfirst($this->getConfiguration('jarvis::trigger')) . '.pmdl', $this->getConfiguration('jarvis_install_folder') . '/stt_engines/snowboy/resources/' . $this->getConfiguration('jarvis::trigger') . '.pmdl');
 		}
-		if ($this->getConfiguration('jarvis::volume', null) !== null && $this->getConfiguration('jarvis::play_hw') != '') {
-			$card = substr(str_replace('hw:', '', $this->getConfiguration('jarvis::play_hw')), 0, 1);
-			$this->execCmd('sudo amixer -c ' . $card . ' set PCM ' . $this->getConfiguration('jarvis::volume', null) . '%');
+		if ($this->getCache('deamonState') == 'start') {
+			$this->deamonManagement('start');
 		}
-		if ($this->getConfiguration('jarvis::sensitivity', null) !== null && $this->getConfiguration('jarvis::rec_hw') != '') {
-			$card = substr(str_replace('hw:', '', $this->getConfiguration('jarvis::rec_hw')), 0, 1);
-			$this->execCmd('sudo amixer -c ' . $card . ' set Mic ' . $this->getConfiguration('jarvis::sensitivity', null) . '%');
-		}
-		$this->deamonManagement('start');
 	}
 
 	public function copyFile($_from, $_to) {
@@ -310,6 +345,19 @@ class jarvisCmd extends cmd {
 			$eqLogic->deamonManagement($this->getLogicalId());
 			$eqLogic->updateInfo();
 			$eqLogic->setCache('deamonState', $this->getLogicalId());
+			return;
+		}
+		if ($this->getLogicalId() == 'volume') {
+			$card = substr(str_replace('hw:', '', $eqLogic->getConfiguration('jarvis::play_hw')), 0, 1);
+			$eqLogic->execCmd('sudo amixer -c ' . $card . ' set PCM ' . $_options['slider'] . '%');
+		}
+		if ($this->getLogicalId() == 'sensitivity') {
+			$card = substr(str_replace('hw:', '', $eqLogic->getConfiguration('jarvis::rec_hw')), 0, 1);
+			$eqLogic->execCmd('sudo amixer -c ' . $card . ' set Mic ' . $_options['slider'] . '%');
+		}
+		if ($this->getLogicalId() == 'say') {
+			$text = trim($_options['title'] . ' ' . $_options['message']);
+			$eqLogic->execCmd('sudo ' . $eqLogic->getConfiguration('jarvis_install_folder') . '/jarvis.sh -s ' . escapeshellarg($text));
 		}
 	}
 
