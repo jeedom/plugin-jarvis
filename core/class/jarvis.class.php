@@ -175,6 +175,9 @@ class jarvis extends eqLogic {
 
 	public function getSpeakerOrMicro($_type = 'speaker') {
 		$result = array();
+		if (!$this->getIsEnable()) {
+			return $result;
+		}
 		switch ($_type) {
 			case 'speaker':
 				$datas = explode("\n", $this->execCmd('sudo aplay -l | grep card'));
