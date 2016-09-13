@@ -95,6 +95,16 @@ class jarvis extends eqLogic {
 			case 'info':
 				return ($this->execCmd('sudo ps -ax | grep jarvis.sh | grep -v grep | wc -l') != 0);
 			case 'start':
+				$volume = $this->getCmd(null, 'volume');
+				if (is_object($volume) && $volume->getLastValue() !== '') {
+					$card = substr(str_replace('hw:', '', $this->getConfiguration('jarvis::play_hw')), 0, 1);
+					$this->execCmd('sudo amixer -c ' . $card . ' set PCM ' . $volume->getLastValue() . '%');
+				}
+				$sensitivity = $this->getCmd(null, 'sensitivity');
+				if (is_object($sensitivity) && $sensitivity->getLastValue() !== '') {
+					$card = substr(str_replace('hw:', '', $this->getConfiguration('jarvis::rec_hw')), 0, 1);
+					$this->execCmd('sudo amixer -c ' . $card . ' set Mic ' . $volume->getLastValue() . '%');
+				}
 				$this->execCmd('sudo ' . $this->getConfiguration('jarvis_install_folder') . '/jarvis.sh -b');
 				break;
 			case 'stop':
