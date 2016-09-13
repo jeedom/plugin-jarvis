@@ -212,6 +212,17 @@ class jarvis extends eqLogic {
 		$cmd->setType('action');
 		$cmd->setSubType('message');
 		$cmd->save();
+
+		$refresh = $this->getCmd(null, 'refresh');
+		if (!is_object($refresh)) {
+			$refresh = new jarvisCmd();
+		}
+		$refresh->setName(__('Rafraîchir', __FILE__));
+		$refresh->setEqLogic_id($this->getId());
+		$refresh->setLogicalId('refresh');
+		$refresh->setType('action');
+		$refresh->setSubType('other');
+		$refresh->save();
 	}
 
 	public function getSpeakerOrMicro($_type = 'speaker') {
@@ -345,6 +356,10 @@ class jarvisCmd extends cmd {
 			$eqLogic->deamonManagement($this->getLogicalId());
 			$eqLogic->updateInfo();
 			$eqLogic->setCache('deamonState', $this->getLogicalId());
+			return;
+		}
+		if ($this->getLogicalId() == 'refresh') {
+			$eqLogic->updateInfo();
 			return;
 		}
 		if ($this->getLogicalId() == 'volume') {
