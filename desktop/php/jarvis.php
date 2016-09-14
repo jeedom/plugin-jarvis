@@ -378,7 +378,7 @@ foreach (object::all() as $object) {
   </div>
 
   <div class="form-group">
-    <label class="col-lg-3 control-label">{{Envoyer fichier mot magique snowboy}}</label>
+    <label class="col-lg-3 control-label">{{Envoyer fichier mot magique (de début ou de fin) snowboy}}</label>
     <div class="col-lg-8">
       <span class="btn btn-default btn-file">
         <i class="fa fa-cloud-upload"></i> {{Envoyer}}<input  id="bt_uploadMagicWordSnowboy" type="file" name="file" style="display: inline-block;">
