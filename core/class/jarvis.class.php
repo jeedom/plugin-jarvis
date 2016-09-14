@@ -187,6 +187,18 @@ class jarvis extends eqLogic {
 		$cmd->setSubType('other');
 		$cmd->save();
 
+		$cmd = $this->getCmd(null, 'listen');
+		if (!is_object($cmd)) {
+			$cmd = new jarvisCmd();
+			$cmd->setName(__('Ecouter', __FILE__));
+			$cmd->setOrder(3);
+		}
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->setLogicalId('listen');
+		$cmd->setType('action');
+		$cmd->setSubType('other');
+		$cmd->save();
+
 		$cmd = $this->getCmd(null, 'volume');
 		if (!is_object($cmd)) {
 			$cmd = new jarvisCmd();
@@ -367,11 +379,12 @@ class jarvisCmd extends cmd {
 			$eqLogic->deamonManagement($this->getLogicalId());
 			$eqLogic->updateInfo();
 			$eqLogic->setCache('deamonState', $this->getLogicalId());
-			return;
 		}
 		if ($this->getLogicalId() == 'refresh') {
 			$eqLogic->updateInfo();
-			return;
+		}
+		if ($this->getLogicalId() == 'listen') {
+			$eqLogic->execCmd('sudo ' . $eqLogic->getConfiguration('jarvis_install_folder') . '/jarvis.sh -l');
 		}
 		if ($this->getLogicalId() == 'volume') {
 			$card = substr(str_replace('hw:', '', $eqLogic->getConfiguration('jarvis::play_hw')), 0, 1);
