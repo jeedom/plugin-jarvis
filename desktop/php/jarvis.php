@@ -332,7 +332,7 @@ foreach (object::all() as $object) {
   <div class="panel-heading" role="tab" id="headingFive">
     <h4 class="panel-title">
       <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-        <i class="fa fa-microphone" aria-hidden="true"></i> {{Reconnaissance vocal}}
+        <i class="fa fa-microphone" aria-hidden="true"></i> {{Reconnaissance vocale}}
       </a>
     </h4>
   </div>
@@ -400,7 +400,7 @@ foreach (object::all() as $object) {
   <div class="panel-heading" role="tab" id="headingSix">
     <h4 class="panel-title">
       <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-        <i class="fa fa-play" aria-hidden="true"></i> {{Synthese vocal}}
+        <i class="fa fa-play" aria-hidden="true"></i> {{Synthese vocale}}
       </a>
     </h4>
   </div>
