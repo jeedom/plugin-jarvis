@@ -47,13 +47,12 @@ class jarvis extends eqLogic {
 			$dataStore = new dataStore();
 			$dataStore->setType('scenario');
 			$dataStore->setKey($say->getCache('storeVariable', 'none'));
-			$dataStore->setValue(init('query'));
+			$dataStore->setValue($query);
 			$dataStore->setLink_id(-1);
 			$dataStore->save();
 			$say->setCache('storeVariable', 'none');
 			return;
 		}
-
 		$response = interactQuery::tryToReply($query, $param);
 		if ($jarvis->getConfiguration('redirectJeedomResponse') == '') {
 			echo $response;
