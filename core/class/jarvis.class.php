@@ -220,6 +220,7 @@ class jarvis extends eqLogic {
 		$cmd->setEqLogic_id($this->getId());
 		$cmd->setLogicalId('say');
 		$cmd->setType('action');
+		$cmd->setDisplay('title_disable', 1);
 		$cmd->setSubType('message');
 		$cmd->save();
 
