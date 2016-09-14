@@ -42,6 +42,18 @@ class jarvis extends eqLogic {
 		if (init('profile') != '') {
 			$param['profile'] = init('profile');
 		}
+
+		if ($say->getCache('storeVariable', 'none') != 'none') {
+			$dataStore = new dataStore();
+			$dataStore->setType('scenario');
+			$dataStore->setKey($say->getCache('storeVariable', 'none'));
+			$dataStore->setValue(init('query'));
+			$dataStore->setLink_id(-1);
+			$dataStore->save();
+			$say->setCache('storeVariable', 'none');
+			return;
+		}
+
 		$response = interactQuery::tryToReply($query, $param);
 		if ($jarvis->getConfiguration('redirectJeedomResponse') == '') {
 			echo $response;
@@ -255,10 +267,10 @@ class jarvis extends eqLogic {
 		}
 		switch ($_type) {
 			case 'speaker':
-				$datas = explode("\n", $this->execCmd('sudo aplay -l | grep card'));
+				$datas = explode("\n", $this->execCmd('sudo aplay -l | grep -E "card|carte"'));
 				break;
 			case 'micro':
-				$datas = explode("\n", $this->execCmd('sudo arecord -l | grep card'));
+				$datas = explode("\n", $this->execCmd('sudo arecord -l | grep -E "card|carte"'));
 				break;
 			default:
 				return $result;
@@ -270,6 +282,16 @@ class jarvis extends eqLogic {
 				continue;
 			}
 			preg_match('/.*card(.*?):(.*),.*device(.*?):(.*)/', $data, $matches);
+			if (count($matches) != 5) {
+				continue;
+			}
+			$result['hw:' . trim($matches[1]) . ',' . trim($matches[3])] = trim($matches[2]) . ' ' . trim($matches[4]) . ' (' . trim($matches[1]) . ',' . trim($matches[3]) . ')';
+		}
+		foreach ($datas as $data) {
+			if (trim($data) == '') {
+				continue;
+			}
+			preg_match('/.*carte(.*?):(.*),.*périphérique(.*?):(.*)/', $data, $matches);
 			if (count($matches) != 5) {
 				continue;
 			}
@@ -291,14 +313,17 @@ class jarvis extends eqLogic {
 		}
 		$cmd = 'sudo echo "curl -s  -G \"' . network::getNetworkAccess('internal') . '/core/api/jeeApi.php?apikey=' . config::byKey('api') . '&type=jarvis&id=' . $this->getId() . '\" --data-urlencode \"query=\$1\"" > ' . $this->getConfiguration('jarvis_install_folder') . '/jeedom.sh;sudo chmod +x ' . $this->getConfiguration('jarvis_install_folder') . '/jeedom.sh';
 		$this->execCmd($cmd);
-		$cmd = 'sudo echo \'(*)==say "$(' . $this->getConfiguration('jarvis_install_folder') . '/jeedom.sh \"(1)\")"\' > ' . $this->getConfiguration('jarvis_install_folder') . '/jarvis-commands';
+		$cmd = 'sudo rm -rf ' . $this->getConfiguration('jarvis_install_folder') . '/jarvis-commands';
+		if ($this->getConfiguration('jarvis::trigger_end') != '') {
+			$cmd = 'sudo echo \'' . $this->getConfiguration('jarvis::trigger_end') . '==bypass=false; say "' . $this->getConfiguration('jarvis::phrase_triggered_end', __('Au revoir', __FILE__)) . '"\' >> ' . $this->getConfiguration('jarvis_install_folder') . '/jarvis-commands';
+		}
+		$cmd .= 'sudo echo \'(*)==say "$(' . $this->getConfiguration('jarvis_install_folder') . '/jeedom.sh \"(1)\")"\' >> ' . $this->getConfiguration('jarvis_install_folder') . '/jarvis-commands';
 		$this->execCmd($cmd);
-		if (file_exists(dirname(__FILE__) . '/../../data/' . $this->getConfiguration('jarvis::trigger') . '.pmdl')) {
-			$this->copyFile(dirname(__FILE__) . '/../../data/' . $this->getConfiguration('jarvis::trigger') . '.pmdl', $this->getConfiguration('jarvis_install_folder') . '/stt_engines/snowboy/resources/' . $this->getConfiguration('jarvis::trigger') . '.pmdl');
-		} else if (file_exists(dirname(__FILE__) . '/../../resources/' . $this->getConfiguration('jarvis::trigger') . '.pmdl')) {
-			$this->copyFile(dirname(__FILE__) . '/../../resources/' . $this->getConfiguration('jarvis::trigger') . '.pmdl', $this->getConfiguration('jarvis_install_folder') . '/stt_engines/snowboy/resources/' . $this->getConfiguration('jarvis::trigger') . '.pmdl');
-		} else if (file_exists(dirname(__FILE__) . '/../../resources/' . ucfirst($this->getConfiguration('jarvis::trigger')) . '.pmdl')) {
-			$this->copyFile(dirname(__FILE__) . '/../../resources/' . ucfirst($this->getConfiguration('jarvis::trigger')) . '.pmdl', $this->getConfiguration('jarvis_install_folder') . '/stt_engines/snowboy/resources/' . $this->getConfiguration('jarvis::trigger') . '.pmdl');
+		foreach (ls(dirname(__FILE__) . '/../../resources', '*.pmdl') as $files) {
+			$this->copyFile(dirname(__FILE__) . '/../../resources/' . $files, $this->getConfiguration('jarvis_install_folder') . '/stt_engines/snowboy/resources/' . strtolower($files));
+		}
+		foreach (ls(dirname(__FILE__) . '/../../data', '*.pmdl') as $files) {
+			$this->copyFile(dirname(__FILE__) . '/../../data/' . $files, $this->getConfiguration('jarvis_install_folder') . '/stt_engines/snowboy/data/' . strtolower($files));
 		}
 		if ($this->getCache('deamonState') == 'start') {
 			$this->deamonManagement('start');
@@ -384,7 +409,7 @@ class jarvisCmd extends cmd {
 			$eqLogic->updateInfo();
 		}
 		if ($this->getLogicalId() == 'listen') {
-			$eqLogic->execCmd('sudo ' . $eqLogic->getConfiguration('jarvis_install_folder') . '/jarvis.sh -l');
+			$eqLogic->execCmd('sudo ' . $eqLogic->getConfiguration('jarvis_install_folder') . '/jarvis.sh -l &');
 		}
 		if ($this->getLogicalId() == 'volume') {
 			$card = substr(str_replace('hw:', '', $eqLogic->getConfiguration('jarvis::play_hw')), 0, 1);
@@ -395,8 +420,12 @@ class jarvisCmd extends cmd {
 			$eqLogic->execCmd('sudo amixer -c ' . $card . ' set Mic ' . $_options['slider'] . '%');
 		}
 		if ($this->getLogicalId() == 'say') {
-			$text = trim($_options['title'] . ' ' . $_options['message']);
-			$eqLogic->execCmd('sudo ' . $eqLogic->getConfiguration('jarvis_install_folder') . '/jarvis.sh -s ' . escapeshellarg($text));
+			$cmd = 'sudo ' . $eqLogic->getConfiguration('jarvis_install_folder') . '/jarvis.sh -s ' . escapeshellarg(trim($_options['message']));
+			if (isset($_options['answer'])) {
+				$cmd .= ';sudo ' . $eqLogic->getConfiguration('jarvis_install_folder') . '/jarvis.sh -l &';
+			}
+			$eqLogic->execCmd($cmd);
+
 		}
 	}
 

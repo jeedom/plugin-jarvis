@@ -199,9 +199,15 @@ foreach (object::all() as $object) {
         </div>
       </div>
       <div class="form-group">
-        <label class="col-sm-3 control-label">{{Mot magique}}</label>
+        <label class="col-sm-3 control-label">{{Mot magique de début de conversation}}</label>
         <div class="col-sm-3">
           <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::trigger" />
+        </div>
+      </div>
+       <div class="form-group">
+        <label class="col-sm-3 control-label">{{Mot magique de fin de conversation}}</label>
+        <div class="col-sm-3">
+          <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::trigger_end" />
         </div>
       </div>
       <div class="form-group">
@@ -254,6 +260,12 @@ foreach (object::all() as $object) {
         <label class="col-sm-3 control-label">{{Phrase de confirmation d'écoute}}</label>
         <div class="col-sm-3">
           <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::phrase_triggered" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">{{Phrase de fin d'écoute}}</label>
+        <div class="col-sm-3">
+          <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="jarvis::phrase_triggered_end" />
         </div>
       </div>
       <div class="form-group">
