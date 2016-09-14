@@ -42,8 +42,8 @@ class jarvis extends eqLogic {
 		if (init('profile') != '') {
 			$param['profile'] = init('profile');
 		}
-
-		if ($say->getCache('storeVariable', 'none') != 'none') {
+		$say = $jarvis->getCmd(null, 'say');
+		if (is_object($say) && $say->getCache('storeVariable', 'none') != 'none') {
 			$dataStore = new dataStore();
 			$dataStore->setType('scenario');
 			$dataStore->setKey($say->getCache('storeVariable', 'none'));
