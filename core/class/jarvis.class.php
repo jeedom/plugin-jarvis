@@ -312,9 +312,9 @@ class jarvis extends eqLogic {
 		}
 		$cmd = 'sudo echo "curl -s  -G \"' . network::getNetworkAccess('internal') . '/core/api/jeeApi.php?apikey=' . config::byKey('api') . '&type=jarvis&id=' . $this->getId() . '\" --data-urlencode \"query=\$1\"" > ' . $this->getConfiguration('jarvis_install_folder') . '/jeedom.sh;sudo chmod +x ' . $this->getConfiguration('jarvis_install_folder') . '/jeedom.sh';
 		$this->execCmd($cmd);
-		$cmd = 'sudo rm -rf ' . $this->getConfiguration('jarvis_install_folder') . '/jarvis-commands';
+		$cmd = 'sudo rm -rf ' . $this->getConfiguration('jarvis_install_folder') . '/jarvis-commands;';
 		if ($this->getConfiguration('jarvis::trigger_end') != '') {
-			$cmd = 'sudo echo \'' . $this->getConfiguration('jarvis::trigger_end') . '==bypass=false; say "' . $this->getConfiguration('jarvis::phrase_triggered_end', __('Au revoir', __FILE__)) . '"\' >> ' . $this->getConfiguration('jarvis_install_folder') . '/jarvis-commands';
+			$cmd = 'sudo echo \'' . $this->getConfiguration('jarvis::trigger_end') . '==bypass=false; say "' . $this->getConfiguration('jarvis::phrase_triggered_end', __('Au revoir', __FILE__)) . '"\' >> ' . $this->getConfiguration('jarvis_install_folder') . '/jarvis-commands;';
 		}
 		$cmd .= 'sudo echo \'(*)==say "$(' . $this->getConfiguration('jarvis_install_folder') . '/jeedom.sh \"(1)\")"\' >> ' . $this->getConfiguration('jarvis_install_folder') . '/jarvis-commands';
 		$this->execCmd($cmd);
