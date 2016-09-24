@@ -112,6 +112,7 @@ class jarvis extends eqLogic {
 					$card = substr(str_replace('hw:', '', $this->getConfiguration('jarvis::play_hw')), 0, 1);
 					$this->execCmd('sudo amixer -c ' . $card . ' set PCM ' . $volume->getLastValue() . '%');
 				}
+				echo "\n";
 				$sensitivity = $this->getCmd(null, 'sensitivity');
 				if (is_object($sensitivity) && $sensitivity->getLastValue() !== '') {
 					$card = substr(str_replace('hw:', '', $this->getConfiguration('jarvis::rec_hw')), 0, 1);
@@ -123,9 +124,12 @@ class jarvis extends eqLogic {
 					$this->deamonManagement('stop');
 					sleep(3);
 					$this->execCmd('sudo ' . $this->getConfiguration('jarvis_install_folder') . '/jarvis.sh -b');
-				}
-				if (strpos($this->readFile($this->getConfiguration('jarvis_install_folder') . '/jarvis.log'), 'snowboy recognition failed') !== false) {
-					throw new Exception(__('Impossible de démarrer jarvis, essayer de débrancher le micro et de le rebrancher.', __FILE__));
+					sleep(4);
+					if (strpos($this->readFile($this->getConfiguration('jarvis_install_folder') . '/jarvis.log'), 'snowboy recognition failed') !== false) {
+						$this->deamonManagement('stop');
+						$this->updateInfo();
+						throw new Exception(__('Impossible de démarrer jarvis, essayer de débrancher le micro et de le rebrancher', __FILE__));
+					}
 				}
 				break;
 			case 'stop':
