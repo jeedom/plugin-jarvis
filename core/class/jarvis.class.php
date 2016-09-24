@@ -106,6 +106,7 @@ class jarvis extends eqLogic {
 			case 'info':
 				return ($this->execCmd('sudo ps -ax | grep jarvis.sh | grep -v grep | wc -l') != 0);
 			case 'start':
+				$this->deamonManagement('stop');
 				$volume = $this->getCmd(null, 'volume');
 				if (is_object($volume) && $volume->getLastValue() !== '') {
 					$card = substr(str_replace('hw:', '', $this->getConfiguration('jarvis::play_hw')), 0, 1);
@@ -117,11 +118,20 @@ class jarvis extends eqLogic {
 					$this->execCmd('sudo amixer -c ' . $card . ' set Mic ' . $volume->getLastValue() . '%');
 				}
 				$this->execCmd('sudo ' . $this->getConfiguration('jarvis_install_folder') . '/jarvis.sh -b');
+				sleep(3);
+				if (strpos($this->readFile($this->getConfiguration('jarvis_install_folder') . '/jarvis.log'), 'snowboy recognition failed') !== false) {
+					$this->deamonManagement('stop');
+					sleep(3);
+					$this->execCmd('sudo ' . $this->getConfiguration('jarvis_install_folder') . '/jarvis.sh -b');
+				}
+				if (strpos($this->readFile($this->getConfiguration('jarvis_install_folder') . '/jarvis.log'), 'snowboy recognition failed') !== false) {
+					throw new Exception(__('Impossible de démarrer jarvis, essayer de débrancher le micro et de le rebrancher.', __FILE__));
+				}
 				break;
 			case 'stop':
 				$cmd = "(ps ax || ps w) | grep -ie 'jarvis.sh' | grep -v grep | awk '{print $1}' | xargs kill -9 > /dev/null 2>&1";
 				$cmd .= "; (ps ax || ps w) | grep -ie 'jarvis.sh' | grep -v grep | awk '{print $1}' | xargs sudo kill -9 > /dev/null 2>&1";
-				$this->execCmd('sudo ' . $cmd);
+				$this->execCmd($cmd);
 				break;
 		}
 	}
@@ -146,8 +156,8 @@ class jarvis extends eqLogic {
 		$this->setConfiguration('jarvis::snowboy_sensitivity', 0.5);
 		$this->setConfiguration('jarvis::trigger', 'ok jeedom');
 		$this->setConfiguration('jarvis::trigger_mode', 'magic_word');
-		$this->setConfiguration('jarvis::trigger_stt', 'svox_pico');
-		$this->setConfiguration('jarvis::tts_engine', 'true');
+		$this->setConfiguration('jarvis::trigger_stt', 'snowboy');
+		$this->setConfiguration('jarvis::tts_engine', 'svox_pico');
 		$this->setConfiguration('jarvis::volume', 83);
 		$this->setConfiguration('jarvis::sensitivity', 83);
 	}
@@ -275,7 +285,6 @@ class jarvis extends eqLogic {
 				return $result;
 				break;
 		}
-
 		foreach ($datas as $data) {
 			if (trim($data) == '') {
 				continue;
@@ -304,6 +313,7 @@ class jarvis extends eqLogic {
 			return;
 		}
 		$this->deamonManagement('stop');
+		$this->execCmd('sudo chmod 77 -R ' . $this->getConfiguration('jarvis_install_folder'));
 		foreach (self::$_configParam as $param) {
 			if ($this->getConfiguration('jarvis::' . $param, null) === null) {
 				continue;
@@ -314,7 +324,7 @@ class jarvis extends eqLogic {
 		$this->execCmd($cmd);
 		$cmd = 'sudo rm -rf ' . $this->getConfiguration('jarvis_install_folder') . '/jarvis-commands;';
 		if ($this->getConfiguration('jarvis::trigger_end') != '') {
-			$cmd = 'sudo echo \'' . $this->getConfiguration('jarvis::trigger_end') . '==bypass=false; say "' . $this->getConfiguration('jarvis::phrase_triggered_end', __('Au revoir', __FILE__)) . '"\' >> ' . $this->getConfiguration('jarvis_install_folder') . '/jarvis-commands;';
+			$cmd .= 'sudo echo \'' . $this->getConfiguration('jarvis::trigger_end') . '==bypass=false; say "' . $this->getConfiguration('jarvis::phrase_triggered_end', __('Au revoir', __FILE__)) . '"\' >> ' . $this->getConfiguration('jarvis_install_folder') . '/jarvis-commands;';
 		}
 		$cmd .= 'sudo echo \'(*)==say "$(' . $this->getConfiguration('jarvis_install_folder') . '/jeedom.sh \"(1)\")"\' >> ' . $this->getConfiguration('jarvis_install_folder') . '/jarvis-commands';
 		$this->execCmd($cmd);
