@@ -45,10 +45,10 @@ fi
 
 if [ "$(uname)" == "Darwin" ]; then
 	platform="osx"
-	apt_install awk curl git iconv nano osascript perl sed sox wget jq
+	apt_install awk curl git nano osascript perl sed sox wget jq
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 	platform="linux"
-	apt_install alsa-utils gawk curl git mpg123 nano perl sed sox wget whiptail jq iconv 
+	apt_install alsa-utils gawk curl git mpg123 nano perl sed sox wget whiptail jq 
 	apt-get install -y alsamixer aplay arecord
 else
 	echo "ERROR: Unsupported platform"
