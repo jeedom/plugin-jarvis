@@ -4,6 +4,6 @@
 	"description" : "Plugin permettant de gérer un ou plusieurs Jarvis",
 	"licence" : "AGPL",
 	"author" : "Loïc",
-	"require" : "2.3",
+	"require" : "2.4",
 	"category" : "communication"
 }
