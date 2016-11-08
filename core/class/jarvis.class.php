@@ -136,6 +136,9 @@ class jarvis extends eqLogic {
 				$cmd = "(ps ax || ps w) | grep -ie 'jarvis.sh' | grep -v grep | awk '{print $1}' | xargs kill -9 > /dev/null 2>&1";
 				$cmd .= "; (ps ax || ps w) | grep -ie 'jarvis.sh' | grep -v grep | awk '{print $1}' | xargs sudo kill -9 > /dev/null 2>&1";
 				$this->execCmd($cmd);
+				$cmd = "(ps ax || ps w) | grep -ie 'snowboy' | grep -v grep | awk '{print $1}' | xargs kill -9 > /dev/null 2>&1";
+				$cmd .= "; (ps ax || ps w) | grep -ie 'snowboy' | grep -v grep | awk '{print $1}' | xargs sudo kill -9 > /dev/null 2>&1";
+				$this->execCmd($cmd);
 				break;
 		}
 	}
