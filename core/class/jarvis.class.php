@@ -320,7 +320,7 @@ class jarvis extends eqLogic {
 			return;
 		}
 		$this->deamonManagement('stop');
-		$this->execCmd('sudo chmod 77 -R ' . $this->getConfiguration('jarvis_install_folder'));
+		$this->execCmd('sudo chmod 777 -R ' . $this->getConfiguration('jarvis_install_folder'));
 		foreach (self::$_configParam as $param) {
 			if ($this->getConfiguration('jarvis::' . $param, null) === null) {
 				continue;
