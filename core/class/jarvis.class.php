@@ -96,7 +96,6 @@ class jarvis extends eqLogic {
 		$state_info = $this->deamonManagement('info');
 		$state = $this->getCmd(null, 'state');
 		if (is_object($state) && $state->formatValue($state_info) != $state->execCmd()) {
-			$state->setCollectDate('');
 			$state->event($state_info);
 		}
 	}
