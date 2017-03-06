@@ -44,13 +44,7 @@ class jarvis extends eqLogic {
 		}
 		$say = $jarvis->getCmd(null, 'say');
 		if (is_object($say) && $say->getCache('storeVariable', 'none') != 'none') {
-			$dataStore = new dataStore();
-			$dataStore->setType('scenario');
-			$dataStore->setKey($say->getCache('storeVariable', 'none'));
-			$dataStore->setValue($query);
-			$dataStore->setLink_id(-1);
-			$dataStore->save();
-			$say->setCache('storeVariable', 'none');
+			$say->askResponse($query);
 			return;
 		}
 		$response = interactQuery::tryToReply($query, $param);
