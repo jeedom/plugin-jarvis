@@ -35,7 +35,7 @@ class jarvis extends eqLogic {
 		if (init('utf8', 0) == 1) {
 			$query = utf8_encode($query);
 		}
-		$param = array();
+		$param = array('plugin' => 'jarvis');
 		if (init('emptyReply') != '') {
 			$param['emptyReply'] = init('emptyReply');
 		}
