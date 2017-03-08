@@ -49,13 +49,13 @@ class jarvis extends eqLogic {
 		}
 		$response = interactQuery::tryToReply($query, $param);
 		if ($jarvis->getConfiguration('redirectJeedomResponse') == '') {
-			echo $response;
+			echo $response['reply'];
 		} else {
 			$cmd = cmd::byId(str_replace('#', '', $jarvis->getConfiguration('redirectJeedomResponse')));
 			if (!is_object($cmd)) {
 				throw new Exception(__('Commande de réponse introuvable :', __FILE__) . ' ' . $jarvis->getConfiguration('redirectJeedomResponse'));
 			}
-			$cmd->execCmd(array('message' => $response));
+			$cmd->execCmd(array('message' => $response['reply']));
 		}
 		return;
 	}
