@@ -326,7 +326,7 @@ class jarvis extends eqLogic {
 		if ($this->getConfiguration('jarvis::trigger_end') != '') {
 			$cmd .= 'sudo echo \'' . $this->getConfiguration('jarvis::trigger_end') . '==bypass=false; say "' . $this->getConfiguration('jarvis::phrase_triggered_end', __('Au revoir', __FILE__)) . '"\' >> ' . $this->getConfiguration('jarvis_install_folder') . '/jarvis-commands;';
 		}
-		$cmd .= 'sudo echo \'(*)==say "$(' . $this->getConfiguration('jarvis_install_folder') . '/jeedom.sh \"(1)\")"\' >> ' . $this->getConfiguration('jarvis_install_folder') . '/jarvis-commands';
+		$cmd .= 'sudo echo \'*==say "$(' . $this->getConfiguration('jarvis_install_folder') . '/jeedom.sh \"(1)\")"\' >> ' . $this->getConfiguration('jarvis_install_folder') . '/jarvis-commands';
 		$this->execCmd($cmd);
 		foreach (ls(dirname(__FILE__) . '/../../resources', '*.pmdl') as $files) {
 			$this->copyFile(dirname(__FILE__) . '/../../resources/' . $files, $this->getConfiguration('jarvis_install_folder') . '/stt_engines/snowboy/resources/' . strtolower($files));
