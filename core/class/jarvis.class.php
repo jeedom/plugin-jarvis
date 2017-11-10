@@ -320,7 +320,10 @@ class jarvis extends eqLogic {
 			}
 			$this->execCmd('sudo echo ' . $this->getConfiguration('jarvis::' . $param) . ' > ' . $this->getConfiguration('jarvis_install_folder') . '/config/' . $param);
 		}
-		$cmd = 'sudo echo "curl -s  -G \"' . network::getNetworkAccess('internal') . '/core/api/jeeApi.php?apikey=' . config::byKey('api') . '&type=jarvis&id=' . $this->getId() . '\" --data-urlencode \"query=\$1\"" > ' . $this->getConfiguration('jarvis_install_folder') . '/jeedom.sh;sudo chmod +x ' . $this->getConfiguration('jarvis_install_folder') . '/jeedom.sh';
+		$cmd = 'sudo echo "#Variable en entree">' . $this->getConfiguration('jarvis_install_folder') . '/jeedom.sh;';
+		$cmd .= 'sudo echo "var_tmp=\$@">>' . $this->getConfiguration('jarvis_install_folder') . '/jeedom.sh;';
+		$cmd .= 'sudo echo "jrv_var_apl=\$(echo \$var_tmp | sed \'s/ /\%20/g\')" >>' . $this->getConfiguration('jarvis_install_folder') . '/jeedom.sh;';
+		$cmd .= 'sudo echo "curl -s \"' . network::getNetworkAccess('internal') . '/core/api/jeeApi.php?apikey=' . config::byKey('api') . '&type=jarvis&id=' . $this->getId() . '&query=\$jrv_var_apl\"" >> ' . $this->getConfiguration('jarvis_install_folder') . '/jeedom.sh;sudo chmod +x ' . $this->getConfiguration('jarvis_install_folder') . '/jeedom.sh';
 		$this->execCmd($cmd);
 		$cmd = 'sudo rm -rf ' . $this->getConfiguration('jarvis_install_folder') . '/jarvis-commands;';
 		if ($this->getConfiguration('jarvis::trigger_end') != '') {
