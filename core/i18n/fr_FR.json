@@ -1,21 +1,11 @@
 {
-    "desktop\/modal\/jarvis.log.php": {
+    "plugins\/jarvis\/desktop\/modal\/jarvis.log.php": {
         "401 - Accès non autorisé": "401 - Accès non autorisé",
         "Pause": "Pause",
         "Rechercher": "Rechercher",
         "Reprendre": "Reprendre"
     },
-    "desktop\/js\/jarvis.js": {
-        "Icône": "Icône",
-        "Tester": "Tester",
-        "Etês vous sur de vouloir lancer l\\'installation de Jarvis ? Ceci peut prendre jusqu\\'a 1 heure. Vous pouvez suivre l\\'avancement dans le log de l\\'installation.N\\'oubliez pas de resauvegarder votre équipement une fois l\\'installation terminée.": "Etês vous sur de vouloir lancer l\\'installation de Jarvis ? Ceci peut prendre jusqu\\'a 1 heure. Vous pouvez suivre l\\'avancement dans le log de l\\'installation.N\\'oubliez pas de resauvegarder votre équipement une fois l\\'installation terminée.",
-        "Installation de Jarvis en cours": "Installation de Jarvis en cours",
-        "Log d'installation": "Log d'installation",
-        "Etês vous sur de vouloir mettre à jour l\\'installation de Jarvis ? Ceci peut prendre jusqu\\'a 1 heure. Vous pouvez suivre l\\'avancement dans le log de l\\'installation.N\\'oubliez pas de resauvegarder votre équipement une fois l\\'installation terminée.": "Etês vous sur de vouloir mettre à jour l\\'installation de Jarvis ? Ceci peut prendre jusqu\\'a 1 heure. Vous pouvez suivre l\\'avancement dans le log de l\\'installation.N\\'oubliez pas de resauvegarder votre équipement une fois l\\'installation terminée.",
-        "Configuration envoyée sur Jarvis": "Configuration envoyée sur Jarvis",
-        "Log de Jarvis": "Log de Jarvis"
-    },
-    "desktop\/php\/jarvis.php": {
+    "plugins\/jarvis\/desktop\/php\/jarvis.php": {
         "401 - Accès non autorisé": "401 - Accès non autorisé",
         "Ajouter un Jarvis": "Ajouter un Jarvis",
         "Rechercher": "Rechercher",
@@ -99,7 +89,17 @@
         "Nom": "Nom",
         "Type": "Type"
     },
-    "core\/ajax\/jarvis.ajax.php": {
+    "plugins\/jarvis\/desktop\/js\/jarvis.js": {
+        "Icône": "Icône",
+        "Tester": "Tester",
+        "Etês vous sur de vouloir lancer l\\'installation de Jarvis ? Ceci peut prendre jusqu\\'a 1 heure. Vous pouvez suivre l\\'avancement dans le log de l\\'installation.N\\'oubliez pas de resauvegarder votre équipement une fois l\\'installation terminée.": "Etês vous sur de vouloir lancer l\\'installation de Jarvis ? Ceci peut prendre jusqu\\'a 1 heure. Vous pouvez suivre l\\'avancement dans le log de l\\'installation.N\\'oubliez pas de resauvegarder votre équipement une fois l\\'installation terminée.",
+        "Installation de Jarvis en cours": "Installation de Jarvis en cours",
+        "Log d'installation": "Log d'installation",
+        "Etês vous sur de vouloir mettre à jour l\\'installation de Jarvis ? Ceci peut prendre jusqu\\'a 1 heure. Vous pouvez suivre l\\'avancement dans le log de l\\'installation.N\\'oubliez pas de resauvegarder votre équipement une fois l\\'installation terminée.": "Etês vous sur de vouloir mettre à jour l\\'installation de Jarvis ? Ceci peut prendre jusqu\\'a 1 heure. Vous pouvez suivre l\\'avancement dans le log de l\\'installation.N\\'oubliez pas de resauvegarder votre équipement une fois l\\'installation terminée.",
+        "Configuration envoyée sur Jarvis": "Configuration envoyée sur Jarvis",
+        "Log de Jarvis": "Log de Jarvis"
+    },
+    "plugins\/jarvis\/core\/ajax\/jarvis.ajax.php": {
         "401 - Accès non autorisé": "401 - Accès non autorisé",
         "Impossible de trouver l\\'équipement :": "Impossible de trouver l\\'équipement :",
         "Aucun fichier trouvé. Vérifié parametre PHP (post size limit)": "Aucun fichier trouvé. Vérifié parametre PHP (post size limit)",
@@ -107,10 +107,10 @@
         "Impossible de déplacer le fichier temporaire": "Impossible de déplacer le fichier temporaire",
         "Aucune méthode correspondante à : ": "Aucune méthode correspondante à : "
     },
-    "core\/class\/jarvis.class.php": {
+    "plugins\/jarvis\/core\/class\/jarvis.class.php": {
         "Equipement introuvable :": "Equipement introuvable :",
         "Commande de réponse introuvable :": "Commande de réponse introuvable :",
-        "Impossible de démarrer jarvis": "Impossible de démarrer jarvis",
+        "Impossible de démarrer jarvis, essayer de débrancher le micro et de le rebrancher": "Impossible de démarrer jarvis, essayer de débrancher le micro et de le rebrancher",
         "Monsieur": "Monsieur",
         "Echec de la commande": "Echec de la commande",
         "Oui": "Oui",

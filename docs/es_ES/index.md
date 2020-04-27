@@ -1,14 +1,14 @@
-Jarvis 
+ 
 ======
 
-Description 
+Descripción 
 -----------
 
-Plugin permettant de gérer un ou plusieurs Jarvis (voir
+
 [ici](:https://github.com/alexylem/jarvis))
 
-FAQ 
+Preguntas frecuentes 
 ---
 
-Changelog détaillé :
+Registro de cambios detallado :
 <https://github.com/jeedom/plugin-jarvis/commits/stable>

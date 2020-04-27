@@ -1,14 +1,14 @@
  
 ======
 
-Description 
+Descrição 
 -----------
 
 
 [ici](:https://github.com/alexylem/jarvis))
 
-FAQ 
+ 
 ---
 
-Changelog detailed :
+ :
 <https://github.com/jeedom/plugin-jarvis/commits/stable>

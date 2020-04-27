@@ -1,4 +1,4 @@
-# 13/08/2019
+# 2019.08.13
 
-- Support de PHP 7.3
+- Unterstützung für PHP 7.3
 
