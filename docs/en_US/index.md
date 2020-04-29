@@ -1,11 +1,11 @@
- 
+Jarvis 
 ======
 
 Description 
 -----------
 
-
-[ici](:https://github.com/alexylem/jarvis))
+Plugin to manage one or more Jarvis (see
+[here](:https://github.com/alexylem/jarvis))
 
 FAQ 
 ---

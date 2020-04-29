@@ -4,10 +4,24 @@
         "Support de PHP 7.3": "Soporte para php 7.3"
     },
     "index.md": {
-        "Jarvis": "",
-        "Description": "Descripción",
-        "Plugin permettant de gérer un ou plusieurs Jarvis (voir": "",
-        "FAQ": "Preguntas frecuentes",
-        "Changelog détaillé": "Registro de cambios detallado"
+        "Plugin permettant de gérer un ou plusieurs Jarvis (voir": "Complemento para administrar uno o más Jarvis (ver",
+        ")": ")",
+        "Changelog détaillé": "Registro de cambios detallado",
+        " Jarvis": " Jarvis",
+        "Jarvis ": "Jarvis ",
+        "[Jarvis": "[Jarvis",
+        "Jarvis]": "Jarvis]",
+        " Description": " Descripción",
+        "Description ": "Descripción ",
+        "[Description": "[Descripción",
+        "Description]": "Descripción]",
+        " ici": " aquí",
+        "ici ": "aquí ",
+        "[ici": "[aquí",
+        "ici]": "aquí]",
+        " FAQ": " Preguntas frecuentes",
+        "FAQ ": "Preguntas frecuentes ",
+        "[FAQ": "[Preguntas frecuentes",
+        "FAQ]": "Preguntas frecuentes]"
     }
 }

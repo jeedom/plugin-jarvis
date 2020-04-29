@@ -1,13 +1,27 @@
 {
     "changelog.md": {
-        "13\/08\/2019": "",
-        "Support de PHP 7.3": ""
+        "13\/08\/2019": "13\/08\/2019",
+        "Support de PHP 7.3": "Suporte para php 7.3"
     },
     "index.md": {
-        "Jarvis": "",
-        "Description": "Descrição",
-        "Plugin permettant de gérer un ou plusieurs Jarvis (voir": "",
-        "FAQ": "",
-        "Changelog détaillé": ""
+        "Plugin permettant de gérer un ou plusieurs Jarvis (voir": "Plugin para gerenciar um ou mais Jarvis (consulte",
+        ")": ")",
+        "Changelog détaillé": "Registro de alterações detalhado",
+        " Jarvis": " Jarvis",
+        "Jarvis ": "Jarvis ",
+        "[Jarvis": "[Jarvis",
+        "Jarvis]": "Jarvis]",
+        " Description": " Descrição",
+        "Description ": "Descrição ",
+        "[Description": "[Descrição",
+        "Description]": "Descrição]",
+        " ici": " aqui",
+        "ici ": "aqui ",
+        "[ici": "[aqui",
+        "ici]": "aqui]",
+        " FAQ": " Faq",
+        "FAQ ": "Faq ",
+        "[FAQ": "[Faq",
+        "FAQ]": "Faq]"
     }
 }
