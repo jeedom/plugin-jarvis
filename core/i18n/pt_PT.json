@@ -92,10 +92,10 @@
     "plugins\/jarvis\/desktop\/js\/jarvis.js": {
         "Icône": "ícone",
         "Tester": "Teste",
-        "Etês vous sur de vouloir lancer l\\'installation de Jarvis ? Ceci peut prendre jusqu\\'a 1 heure. Vous pouvez suivre l\\'avancement dans le log de l\\'installation.N\\'oubliez pas de resauvegarder votre équipement une fois l\\'installation terminée.": "Tem certeza de que deseja iniciar a instalação do Jarvis? Isso pode levar até 1 hora. Você pode acompanhar o progresso no log de instalação. Não se esqueça de fazer backup do seu equipamento quando a instalação estiver concluída.",
+        "Etês vous sur de vouloir lancer l\\'installation de Jarvis ? Ceci peut prendre jusqu\\'a 1 heure. Vous pouvez suivre l\\'avancement dans le log de l\\'installation.N\\'oubliez pas de resauvegarder votre équipement une fois l\\'installation terminée.": "Tem certeza de que deseja iniciar a instalação do Jarvis? Isso pode levar até 1 hora. Você pode acompanhar o progresso no log de instalação. Não se esqueça de fazer backup do seu equipamento quando a instalação estiver concluída",
         "Installation de Jarvis en cours": "Instalação do Jarvis em andamento",
         "Log d'installation": "Log de instalação",
-        "Etês vous sur de vouloir mettre à jour l\\'installation de Jarvis ? Ceci peut prendre jusqu\\'a 1 heure. Vous pouvez suivre l\\'avancement dans le log de l\\'installation.N\\'oubliez pas de resauvegarder votre équipement une fois l\\'installation terminée.": "Tem certeza de que deseja atualizar a instalação do Jarvis? Isso pode levar até 1 hora. Você pode acompanhar o progresso no log de instalação. Não se esqueça de fazer backup do seu equipamento quando a instalação estiver concluída.",
+        "Etês vous sur de vouloir mettre à jour l\\'installation de Jarvis ? Ceci peut prendre jusqu\\'a 1 heure. Vous pouvez suivre l\\'avancement dans le log de l\\'installation.N\\'oubliez pas de resauvegarder votre équipement une fois l\\'installation terminée.": "Tem certeza de que deseja atualizar a instalação do Jarvis? Isso pode levar até 1 hora. Você pode acompanhar o progresso no log de instalação. Não se esqueça de fazer backup do seu equipamento quando a instalação estiver concluída",
         "Configuration envoyée sur Jarvis": "Configuração enviada para Jarvis",
         "Log de Jarvis": "Jarvis log"
     },
@@ -105,7 +105,7 @@
         "Aucun fichier trouvé. Vérifié parametre PHP (post size limit)": "Nenhum arquivo encontrado. Parâmetro PHP verificado (limite de tamanho da postagem)",
         "Le fichier est trop gros (maximum 1mo)": "O arquivo é muito grande (máximo de 1mo)",
         "Impossible de déplacer le fichier temporaire": "Não é possível mover o arquivo temporário",
-        "Aucune méthode correspondante à : ": "Aucune methode correspondante à : "
+        "Aucune méthode correspondante à : ": "Aucune methode correspondante à :"
     },
     "plugins\/jarvis\/core\/class\/jarvis.class.php": {
         "Equipement introuvable :": "Equipamento não encontrado:",

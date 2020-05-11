@@ -92,10 +92,10 @@
     "plugins\/jarvis\/desktop\/js\/jarvis.js": {
         "Icône": "Icon",
         "Tester": "Test",
-        "Etês vous sur de vouloir lancer l\\'installation de Jarvis ? Ceci peut prendre jusqu\\'a 1 heure. Vous pouvez suivre l\\'avancement dans le log de l\\'installation.N\\'oubliez pas de resauvegarder votre équipement une fois l\\'installation terminée.": "Are you sure you want to start installing Jarvis? This can take up to 1 hour. You can follow the progress in the installation log. Don't forget to back up your equipment once the installation is complete.",
+        "Etês vous sur de vouloir lancer l\\'installation de Jarvis ? Ceci peut prendre jusqu\\'a 1 heure. Vous pouvez suivre l\\'avancement dans le log de l\\'installation.N\\'oubliez pas de resauvegarder votre équipement une fois l\\'installation terminée.": "Are you sure you want to start installing Jarvis? This can take up to 1 hour. You can follow the progress in the installation log. Don't forget to back up your equipment once the installation is complete",
         "Installation de Jarvis en cours": "Jarvis installation in progress",
         "Log d'installation": "Installation log",
-        "Etês vous sur de vouloir mettre à jour l\\'installation de Jarvis ? Ceci peut prendre jusqu\\'a 1 heure. Vous pouvez suivre l\\'avancement dans le log de l\\'installation.N\\'oubliez pas de resauvegarder votre équipement une fois l\\'installation terminée.": "Are you sure you want to update the installation of Jarvis? This can take up to 1 hour. You can follow the progress in the installation log. Don't forget to back up your equipment once the installation is complete.",
+        "Etês vous sur de vouloir mettre à jour l\\'installation de Jarvis ? Ceci peut prendre jusqu\\'a 1 heure. Vous pouvez suivre l\\'avancement dans le log de l\\'installation.N\\'oubliez pas de resauvegarder votre équipement une fois l\\'installation terminée.": "Are you sure you want to update the installation of Jarvis? This can take up to 1 hour. You can follow the progress in the installation log. Don't forget to back up your equipment once the installation is complete",
         "Configuration envoyée sur Jarvis": "Configuration sent to Jarvis",
         "Log de Jarvis": "Jarvis log"
     },

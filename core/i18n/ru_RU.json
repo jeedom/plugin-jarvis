@@ -105,7 +105,7 @@
         "Aucun fichier trouvé. Vérifié parametre PHP (post size limit)": "",
         "Le fichier est trop gros (maximum 1mo)": "",
         "Impossible de déplacer le fichier temporaire": "",
-        "Aucune méthode correspondante à : ": "Aucune methode correspondante à : "
+        "Aucune méthode correspondante à : ": "Aucune methode correspondante à :"
     },
     "plugins\/jarvis\/core\/class\/jarvis.class.php": {
         "Equipement introuvable :": "",
