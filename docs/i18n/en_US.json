@@ -7,21 +7,20 @@
         " IMPORTANT.": " Important.",
         " IMPORTANT?": " Important?",
         "IMPORTANT ": "Important ",
-        "[IMPORTANT": "[Important",
-        "IMPORTANT]": "Important]",
-        "*IMPORTANT": "*Important",
-        "IMPORTANT*": "Important*"
+        " IMPORTANT]": " Important]",
+        "[IMPORTANT]": "[Important]",
+        "*IMPORTANT*": "*Important*",
+        " IMPORTANT*": " Important*"
     },
     "index.md": {
         "Plugin Jarvis": "Jarvis plugin",
-        "Plugin permettant de gérer un ou plusieurs Jarvis (voir": "Plugin to manage one or more Jarvis (see",
-        ")": ")",
+        "Plugin permettant de gérer un ou plusieurs Jarvis, voir": "Plugin to manage one or more Jarvis, see",
         " ici.": " here.",
         " ici?": " here?",
         "ici ": "here ",
-        "[ici": "[here",
-        "ici]": "here]",
-        "*ici": "*here",
-        "ici*": "here*"
+        " ici]": " here]",
+        "[ici]": "[here]",
+        "*ici*": "*here*",
+        " ici*": " here*"
     }
 }
