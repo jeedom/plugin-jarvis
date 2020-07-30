@@ -1,13 +1,33 @@
 {
     "id": "jarvis",
     "name": "Jarvis",
-    "description": "Plugin permettant de gérer un ou plusieurs Jarvis",
+    "description": {
+        "fr_FR": "Plugin permettant de gérer un ou plusieurs Jarvis",
+        "en_US": "Plugin to manage one or more Jarvis",
+        "es_ES": "Complemento para administrar uno o más Jarvis",
+        "de_DE": "Plugin zum Verwalten eines oder mehrerer Jarvis",
+        "pt_PT": "Plugin que permite gerenciar um ou mais Jarvis"
+    },
     "licence": "AGPL",
     "author": "Loïc",
     "require": "3.0",
     "category": "communication",
     "changelog": "https:\/\/doc.jeedom.com\/#language#\/plugins\/communication\/jarvis\/changelog",
     "documentation": "https:\/\/doc.jeedom.com\/#language#\/plugins\/communication\/jarvis\/",
-    "language" : ["fr_FR","en_US","de_DE","sp_SP"],
-	"compatibility" : ["miniplus","smart","rpi","docker","diy","mobile","v4"]
+    "language": [
+        "fr_FR",
+        "en_US",
+        "es_ES",
+        "de_DE",
+        "pt_PT"
+    ],
+    "compatibility": [
+        "miniplus",
+        "smart",
+        "rpi",
+        "docker",
+        "diy",
+        "mobile",
+        "v4"
+    ]
 }

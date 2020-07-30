@@ -128,5 +128,8 @@
         "Au revoir": "Auf Wiedersehen",
         "Impossible de se connecter sur :": "Verbindung kann nicht hergestellt werden mit:",
         "Echec de l\\'authentification SSH": "SSH-Authentifizierung fehlgeschlagen"
+    },
+    "info.json": {
+        "Plugin permettant de gérer un ou plusieurs Jarvis": "Plugin zum Verwalten eines oder mehrerer Jarvis"
     }
 }
