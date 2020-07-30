@@ -7,5 +7,7 @@
     "require": "3.0",
     "category": "communication",
     "changelog": "https:\/\/doc.jeedom.com\/#language#\/plugins\/communication\/jarvis\/changelog",
-    "documentation": "https:\/\/doc.jeedom.com\/#language#\/plugins\/communication\/jarvis\/"
+    "documentation": "https:\/\/doc.jeedom.com\/#language#\/plugins\/communication\/jarvis\/",
+    "language" : ["fr_FR","en_US","de_DE","sp_SP"],
+	"compatibility" : ["miniplus","smart","rpi","docker","diy","mobile","v4"]
 }
